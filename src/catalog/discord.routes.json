@@ -1,0 +1,3410 @@
+[
+  {
+    "name": "discord.post_message",
+    "aliases": [
+      "send message",
+      "message channel",
+      "post"
+    ],
+    "method": "POST",
+    "path": "/channels/:channel_id/messages",
+    "description": "Post a message to a channel.",
+    "pack": "CORE",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "tts": {
+          "type": "boolean"
+        },
+        "nonce": {
+          "type": "string"
+        },
+        "flags": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "channel_id",
+        "content"
+      ]
+    }
+  },
+  {
+    "name": "discord.edit_message",
+    "aliases": [
+      "edit msg"
+    ],
+    "method": "PATCH",
+    "path": "/channels/:channel_id/messages/:message_id",
+    "description": "Edit a message by ID.",
+    "pack": "CORE",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "message_id": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id",
+        "message_id",
+        "content"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_message",
+    "aliases": [
+      "fetch message"
+    ],
+    "method": "GET",
+    "path": "/channels/:channel_id/messages/:message_id",
+    "description": "Get a single message by ID.",
+    "pack": "CORE",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "message_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id",
+        "message_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.fetch_messages",
+    "aliases": [
+      "list messages",
+      "history"
+    ],
+    "method": "GET",
+    "path": "/channels/:channel_id/messages",
+    "description": "List recent messages (paginated).",
+    "pack": "CORE",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "before": {
+          "type": "string"
+        },
+        "after": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.add_reaction",
+    "aliases": [
+      "react"
+    ],
+    "method": "PUT",
+    "path": "/channels/:channel_id/messages/:message_id/reactions/:emoji/@me",
+    "description": "Add a reaction to a message.",
+    "pack": "CORE",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "message_id": {
+          "type": "string"
+        },
+        "emoji": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id",
+        "message_id",
+        "emoji"
+      ]
+    }
+  },
+  {
+    "name": "discord.remove_my_reaction",
+    "aliases": [
+      "unreact"
+    ],
+    "method": "DELETE",
+    "path": "/channels/:channel_id/messages/:message_id/reactions/:emoji/@me",
+    "description": "Remove the bot's own reaction from a message.",
+    "pack": "CORE",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "message_id": {
+          "type": "string"
+        },
+        "emoji": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id",
+        "message_id",
+        "emoji"
+      ]
+    }
+  },
+  {
+    "name": "discord.pin_message",
+    "aliases": [
+      "pin"
+    ],
+    "method": "PUT",
+    "path": "/channels/:channel_id/pins/:message_id",
+    "description": "Pin a message.",
+    "pack": "CORE",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "message_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id",
+        "message_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.unpin_message",
+    "aliases": [
+      "unpin"
+    ],
+    "method": "DELETE",
+    "path": "/channels/:channel_id/pins/:message_id",
+    "description": "Unpin a message.",
+    "pack": "CORE",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "message_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id",
+        "message_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.create_thread",
+    "aliases": [
+      "new thread"
+    ],
+    "method": "POST",
+    "path": "/channels/:channel_id/threads",
+    "description": "Create a thread in a channel; optionally from a message.",
+    "pack": "COMMUNITY",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "message_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id",
+        "name"
+      ]
+    }
+  },
+  {
+    "name": "discord.webhook_create",
+    "aliases": [
+      "create webhook"
+    ],
+    "method": "POST",
+    "path": "/channels/:channel_id/webhooks",
+    "description": "Create a webhook in a channel.",
+    "pack": "DEVTOOLS",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id",
+        "name"
+      ]
+    }
+  },
+  {
+    "name": "discord.webhook_list",
+    "aliases": [
+      "list webhooks"
+    ],
+    "method": "GET",
+    "path": "/channels/:channel_id/webhooks",
+    "description": "List webhooks for a channel.",
+    "pack": "DEVTOOLS",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.webhook_delete",
+    "aliases": [
+      "delete webhook"
+    ],
+    "method": "DELETE",
+    "path": "/webhooks/:webhook_id",
+    "description": "Delete a webhook by ID.",
+    "pack": "DEVTOOLS",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "webhook_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "webhook_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.list_roles",
+    "aliases": [
+      "roles"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/roles",
+    "description": "List roles in a guild.",
+    "pack": "ADMIN",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.create_role",
+    "aliases": [
+      "new role"
+    ],
+    "method": "POST",
+    "path": "/guilds/:guild_id/roles",
+    "description": "Create a role in a guild.",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id",
+        "name"
+      ]
+    }
+  },
+  {
+    "name": "discord.delete_role",
+    "aliases": [
+      "remove role"
+    ],
+    "method": "DELETE",
+    "path": "/guilds/:guild_id/roles/:role_id",
+    "description": "Delete a role in a guild.",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "role_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id",
+        "role_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_member",
+    "aliases": [
+      "member info"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/members/:user_id",
+    "description": "Get a guild member.",
+    "pack": "ADMIN",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id",
+        "user_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.kick_member",
+    "aliases": [
+      "kick"
+    ],
+    "method": "DELETE",
+    "path": "/guilds/:guild_id/members/:user_id",
+    "description": "Kick (remove) a member.",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id",
+        "user_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.ban_user",
+    "aliases": [
+      "ban member"
+    ],
+    "method": "PUT",
+    "path": "/guilds/:guild_id/bans/:user_id",
+    "description": "Ban a user from a guild.",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "delete_message_seconds": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 604800
+        }
+      },
+      "required": [
+        "guild_id",
+        "user_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.unban_user",
+    "aliases": [
+      "pardon"
+    ],
+    "method": "DELETE",
+    "path": "/guilds/:guild_id/bans/:user_id",
+    "description": "Remove a ban.",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id",
+        "user_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.create_invite",
+    "aliases": [
+      "invite link"
+    ],
+    "method": "POST",
+    "path": "/channels/:channel_id/invites",
+    "description": "Create an invite to a channel.",
+    "pack": "COMMUNITY",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "max_age": {
+          "type": "integer"
+        },
+        "max_uses": {
+          "type": "integer"
+        },
+        "temporary": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "channel_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.list_emojis",
+    "aliases": [
+      "emojis"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/emojis",
+    "description": "List custom emojis.",
+    "pack": "MEDIA",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.list_commands",
+    "aliases": [
+      "slash commands"
+    ],
+    "method": "GET",
+    "path": "/applications/:application_id/commands",
+    "description": "List global application commands.",
+    "pack": "DEVTOOLS",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "application_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "application_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.trigger_typing",
+    "aliases": [
+      "typing"
+    ],
+    "method": "POST",
+    "path": "/channels/:channel_id/typing",
+    "description": "Trigger typing indicator.",
+    "pack": "CORE",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_audit_log",
+    "aliases": [
+      "audit log",
+      "guild audit log"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/audit-logs",
+    "description": "Fetch the guild audit log (filters supported).",
+    "pack": "ADMIN",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "action_type": {
+          "type": "integer"
+        },
+        "before": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.list_auto_moderation_rules",
+    "aliases": [
+      "automod rules"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/auto-moderation/rules",
+    "description": "List AutoMod rules for a guild.",
+    "pack": "ADMIN",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_auto_moderation_rule",
+    "aliases": [
+      "automod rule"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/auto-moderation/rules/:rule_id",
+    "description": "Get a specific AutoMod rule.",
+    "pack": "ADMIN",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "rule_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id",
+        "rule_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.create_auto_moderation_rule",
+    "aliases": [
+      "create automod rule"
+    ],
+    "method": "POST",
+    "path": "/guilds/:guild_id/auto-moderation/rules",
+    "description": "Create an AutoMod rule (see docs for structure).",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "event_type": {
+          "type": "integer"
+        },
+        "trigger_type": {
+          "type": "integer"
+        },
+        "trigger_metadata": {
+          "type": "object"
+        },
+        "actions": {
+          "type": "array"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "exempt_roles": {
+          "type": "array"
+        },
+        "exempt_channels": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "guild_id",
+        "name",
+        "event_type",
+        "trigger_type",
+        "actions"
+      ]
+    }
+  },
+  {
+    "name": "discord.modify_auto_moderation_rule",
+    "aliases": [
+      "edit automod rule"
+    ],
+    "method": "PATCH",
+    "path": "/guilds/:guild_id/auto-moderation/rules/:rule_id",
+    "description": "Modify an AutoMod rule.",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "rule_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "event_type": {
+          "type": "integer"
+        },
+        "trigger_metadata": {
+          "type": "object"
+        },
+        "actions": {
+          "type": "array"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "exempt_roles": {
+          "type": "array"
+        },
+        "exempt_channels": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "guild_id",
+        "rule_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.delete_auto_moderation_rule",
+    "aliases": [
+      "remove automod rule"
+    ],
+    "method": "DELETE",
+    "path": "/guilds/:guild_id/auto-moderation/rules/:rule_id",
+    "description": "Delete an AutoMod rule.",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "rule_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id",
+        "rule_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_stage_instance",
+    "aliases": [
+      "stage info"
+    ],
+    "method": "GET",
+    "path": "/stage-instances/:channel_id",
+    "description": "Get the stage instance for a stage channel.",
+    "pack": "COMMUNITY",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.create_stage_instance",
+    "aliases": [
+      "start stage"
+    ],
+    "method": "POST",
+    "path": "/stage-instances",
+    "description": "Create/start a stage instance.",
+    "pack": "COMMUNITY",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "topic": {
+          "type": "string"
+        },
+        "privacy_level": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "channel_id",
+        "topic"
+      ]
+    }
+  },
+  {
+    "name": "discord.delete_stage_instance",
+    "aliases": [
+      "end stage"
+    ],
+    "method": "DELETE",
+    "path": "/stage-instances/:channel_id",
+    "description": "Delete/end a stage instance.",
+    "pack": "COMMUNITY",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.list_scheduled_event_users",
+    "aliases": [
+      "event subscribers"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/scheduled-events/:event_id/users",
+    "description": "List users subscribed to a scheduled event.",
+    "pack": "COMMUNITY",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "event_id": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "with_member": {
+          "type": "boolean"
+        },
+        "before": {
+          "type": "string"
+        },
+        "after": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id",
+        "event_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.list_thread_members",
+    "aliases": [
+      "thread members"
+    ],
+    "method": "GET",
+    "path": "/channels/:thread_id/thread-members",
+    "description": "List members of a thread.",
+    "pack": "COMMUNITY",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "thread_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "thread_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.join_thread",
+    "aliases": [
+      "join thread"
+    ],
+    "method": "PUT",
+    "path": "/channels/:thread_id/thread-members/@me",
+    "description": "Join a thread as the bot.",
+    "pack": "COMMUNITY",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "thread_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "thread_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.leave_thread",
+    "aliases": [
+      "leave thread"
+    ],
+    "method": "DELETE",
+    "path": "/channels/:thread_id/thread-members/@me",
+    "description": "Leave a thread as the bot.",
+    "pack": "COMMUNITY",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "thread_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "thread_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_guild",
+    "aliases": [
+      "guild info"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id",
+    "description": "Get a guild by ID (bot must be in it).",
+    "pack": "ADMIN",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.modify_guild",
+    "aliases": [
+      "edit guild"
+    ],
+    "method": "PATCH",
+    "path": "/guilds/:guild_id",
+    "description": "Modify guild settings (limited fields).",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_welcome_screen",
+    "aliases": [
+      "welcome screen"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/welcome-screen",
+    "description": "Get a guild's welcome screen.",
+    "pack": "COMMUNITY",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_guild_templates",
+    "aliases": [
+      "list templates"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/templates",
+    "description": "List templates for a guild.",
+    "pack": "DEVTOOLS",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.sync_guild_template",
+    "aliases": [
+      "sync template"
+    ],
+    "method": "PUT",
+    "path": "/guilds/:guild_id/templates/:code",
+    "description": "Sync a template to the guild's current state.",
+    "pack": "DEVTOOLS",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id",
+        "code"
+      ]
+    }
+  },
+  {
+    "name": "discord.delete_message",
+    "aliases": [
+      "remove message"
+    ],
+    "method": "DELETE",
+    "path": "/channels/:channel_id/messages/:message_id",
+    "description": "Delete a message by ID.",
+    "pack": "CORE",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "message_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id",
+        "message_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.list_pins",
+    "aliases": [
+      "get pins"
+    ],
+    "method": "GET",
+    "path": "/channels/:channel_id/pins",
+    "description": "List pinned messages in a channel.",
+    "pack": "CORE",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.crosspost_message",
+    "aliases": [
+      "publish message"
+    ],
+    "method": "POST",
+    "path": "/channels/:channel_id/messages/:message_id/crosspost",
+    "description": "Crosspost a news channel message.",
+    "pack": "COMMUNITY",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "message_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id",
+        "message_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_reactors",
+    "aliases": [
+      "list reactors"
+    ],
+    "method": "GET",
+    "path": "/channels/:channel_id/messages/:message_id/reactions/:emoji",
+    "description": "List users who reacted to a message with a specific emoji.",
+    "pack": "CORE",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "message_id": {
+          "type": "string"
+        },
+        "emoji": {
+          "type": "string"
+        },
+        "after": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        }
+      },
+      "required": [
+        "channel_id",
+        "message_id",
+        "emoji"
+      ]
+    }
+  },
+  {
+    "name": "discord.create_thread_from_message",
+    "aliases": [
+      "start thread from message"
+    ],
+    "method": "POST",
+    "path": "/channels/:channel_id/messages/:message_id/threads",
+    "description": "Create a thread from an existing message.",
+    "pack": "COMMUNITY",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "message_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id",
+        "message_id",
+        "name"
+      ]
+    }
+  },
+  {
+    "name": "discord.list_channel_invites",
+    "aliases": [
+      "get invites"
+    ],
+    "method": "GET",
+    "path": "/channels/:channel_id/invites",
+    "description": "List active invites for a channel.",
+    "pack": "COMMUNITY",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.list_members",
+    "aliases": [
+      "members"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/members",
+    "description": "List guild members (requires Guild Members intent).",
+    "pack": "ADMIN",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "after": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.search_members",
+    "aliases": [
+      "find members"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/members/search",
+    "description": "Search members by query string.",
+    "pack": "ADMIN",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        }
+      },
+      "required": [
+        "guild_id",
+        "query"
+      ]
+    }
+  },
+  {
+    "name": "discord.modify_member",
+    "aliases": [
+      "edit member"
+    ],
+    "method": "PATCH",
+    "path": "/guilds/:guild_id/members/:user_id",
+    "description": "Modify a member (nick, roles, mute/deaf, channel).",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "nick": {
+          "type": "string"
+        },
+        "roles": {
+          "type": "array"
+        },
+        "mute": {
+          "type": "boolean"
+        },
+        "deaf": {
+          "type": "boolean"
+        },
+        "channel_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id",
+        "user_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.prune_count",
+    "aliases": [
+      "get prune count"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/prune",
+    "description": "Get prune count for members inactive X days.",
+    "pack": "ADMIN",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "days": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 30
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.begin_prune",
+    "aliases": [
+      "prune"
+    ],
+    "method": "POST",
+    "path": "/guilds/:guild_id/prune",
+    "description": "Begin a member prune.",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "days": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 30
+        },
+        "include_roles": {
+          "type": "array"
+        },
+        "compute_prune_count": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "guild_id",
+        "days"
+      ]
+    }
+  },
+  {
+    "name": "discord.modify_role",
+    "aliases": [
+      "edit role"
+    ],
+    "method": "PATCH",
+    "path": "/guilds/:guild_id/roles/:role_id",
+    "description": "Modify a role (name, color, hoist, permissions).",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "role_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "permissions": {
+          "type": "string"
+        },
+        "color": {
+          "type": "integer"
+        },
+        "hoist": {
+          "type": "boolean"
+        },
+        "mentionable": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "guild_id",
+        "role_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.modify_role_positions",
+    "aliases": [
+      "reorder roles"
+    ],
+    "method": "PATCH",
+    "path": "/guilds/:guild_id/roles",
+    "description": "Modify the positions of roles.",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "positions": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "guild_id",
+        "positions"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_emoji",
+    "aliases": [
+      "emoji info"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/emojis/:emoji_id",
+    "description": "Get a single custom emoji.",
+    "pack": "MEDIA",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "emoji_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id",
+        "emoji_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.modify_emoji",
+    "aliases": [
+      "edit emoji"
+    ],
+    "method": "PATCH",
+    "path": "/guilds/:guild_id/emojis/:emoji_id",
+    "description": "Modify a custom emoji (name/roles).",
+    "pack": "MEDIA",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "emoji_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "roles": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "guild_id",
+        "emoji_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.modify_scheduled_event",
+    "aliases": [
+      "edit event"
+    ],
+    "method": "PATCH",
+    "path": "/guilds/:guild_id/scheduled-events/:event_id",
+    "description": "Modify a scheduled event.",
+    "pack": "COMMUNITY",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "event_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "channel_id": {
+          "type": "string"
+        },
+        "scheduled_start_time": {
+          "type": "string"
+        },
+        "scheduled_end_time": {
+          "type": "string"
+        },
+        "entity_type": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "integer"
+        },
+        "image_base64": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id",
+        "event_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.follow_news_channel",
+    "aliases": [
+      "follow announcements"
+    ],
+    "method": "POST",
+    "path": "/channels/:channel_id/followers",
+    "description": "Follow a News channel to another channel.",
+    "pack": "COMMUNITY",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "webhook_channel_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id",
+        "webhook_channel_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_current_user",
+    "aliases": [
+      "whoami"
+    ],
+    "method": "GET",
+    "path": "/users/@me",
+    "description": "Get the bot user.",
+    "pack": "DEVTOOLS",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    }
+  },
+  {
+    "name": "discord.get_current_application",
+    "aliases": [
+      "app info"
+    ],
+    "method": "GET",
+    "path": "/oauth2/applications/@me",
+    "description": "Get the current application.",
+    "pack": "DEVTOOLS",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    }
+  },
+  {
+    "name": "discord.webhook_followup_create",
+    "aliases": [
+      "create followup"
+    ],
+    "method": "POST",
+    "path": "/webhooks/:application_id/:interaction_token",
+    "description": "Create a follow-up message for an interaction (token-based).",
+    "pack": "DEVTOOLS",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "application_id": {
+          "type": "string"
+        },
+        "interaction_token": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "tts": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "application_id",
+        "interaction_token",
+        "content"
+      ]
+    }
+  },
+  {
+    "name": "discord.webhook_followup_edit",
+    "aliases": [
+      "edit followup"
+    ],
+    "method": "PATCH",
+    "path": "/webhooks/:application_id/:interaction_token/messages/:message_id",
+    "description": "Edit a follow-up message by ID (use @original for the original response).",
+    "pack": "DEVTOOLS",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "application_id": {
+          "type": "string"
+        },
+        "interaction_token": {
+          "type": "string"
+        },
+        "message_id": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "application_id",
+        "interaction_token",
+        "message_id",
+        "content"
+      ]
+    }
+  },
+  {
+    "name": "discord.webhook_followup_delete",
+    "aliases": [
+      "delete followup"
+    ],
+    "method": "DELETE",
+    "path": "/webhooks/:application_id/:interaction_token/messages/:message_id",
+    "description": "Delete a follow-up message by ID.",
+    "pack": "DEVTOOLS",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "application_id": {
+          "type": "string"
+        },
+        "interaction_token": {
+          "type": "string"
+        },
+        "message_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "application_id",
+        "interaction_token",
+        "message_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_webhook",
+    "aliases": [
+      "webhook info"
+    ],
+    "method": "GET",
+    "path": "/webhooks/:webhook_id",
+    "description": "Get a webhook by ID.",
+    "pack": "DEVTOOLS",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "webhook_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "webhook_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.modify_webhook",
+    "aliases": [
+      "edit webhook"
+    ],
+    "method": "PATCH",
+    "path": "/webhooks/:webhook_id",
+    "description": "Modify a webhook (name/channel).",
+    "pack": "DEVTOOLS",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "webhook_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "channel_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "webhook_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_webhook_with_token",
+    "aliases": [
+      "webhook info token"
+    ],
+    "method": "GET",
+    "path": "/webhooks/:webhook_id/:token",
+    "description": "Get a webhook with its token (token required).",
+    "pack": "DEVTOOLS",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "webhook_id": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "webhook_id",
+        "token"
+      ]
+    }
+  },
+  {
+    "name": "discord.modify_webhook_with_token",
+    "aliases": [
+      "edit webhook token"
+    ],
+    "method": "PATCH",
+    "path": "/webhooks/:webhook_id/:token",
+    "description": "Modify a webhook using token (name/avatar/channel).",
+    "pack": "DEVTOOLS",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "webhook_id": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "channel_id": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "webhook_id",
+        "token"
+      ]
+    }
+  },
+  {
+    "name": "discord.execute_webhook_advanced",
+    "aliases": [
+      "execute webhook advanced"
+    ],
+    "method": "POST",
+    "path": "/webhooks/:webhook_id/:token",
+    "description": "Execute a webhook (content/embeds/components/attachments).",
+    "pack": "DEVTOOLS",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "webhook_id": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "webhook_id",
+        "token",
+        "content"
+      ]
+    }
+  },
+  {
+    "name": "discord.edit_webhook_message",
+    "aliases": [
+      "edit webhook message"
+    ],
+    "method": "PATCH",
+    "path": "/webhooks/:webhook_id/:token/messages/:message_id",
+    "description": "Edit a message sent by a webhook.",
+    "pack": "DEVTOOLS",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "webhook_id": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "message_id": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "webhook_id",
+        "token",
+        "message_id",
+        "content"
+      ]
+    }
+  },
+  {
+    "name": "discord.delete_webhook_message",
+    "aliases": [
+      "delete webhook message"
+    ],
+    "method": "DELETE",
+    "path": "/webhooks/:webhook_id/:token/messages/:message_id",
+    "description": "Delete a message sent by a webhook.",
+    "pack": "DEVTOOLS",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "webhook_id": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "message_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "webhook_id",
+        "token",
+        "message_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.list_voice_regions",
+    "aliases": [
+      "voice regions"
+    ],
+    "method": "GET",
+    "path": "/voice/regions",
+    "description": "List available voice regions (legacy/for completeness).",
+    "pack": "DEVTOOLS",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    }
+  },
+  {
+    "name": "discord.list_guild_voice_regions",
+    "aliases": [
+      "guild voice regions"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/regions",
+    "description": "List voice regions for a guild.",
+    "pack": "DEVTOOLS",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.list_guild_invites",
+    "aliases": [
+      "guild invites"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/invites",
+    "description": "List active invites for a guild.",
+    "pack": "COMMUNITY",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_thread_member",
+    "aliases": [
+      "thread member info"
+    ],
+    "method": "GET",
+    "path": "/channels/:thread_id/thread-members/:user_id",
+    "description": "Get a thread member by user ID.",
+    "pack": "COMMUNITY",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "thread_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "thread_id",
+        "user_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.add_thread_member",
+    "aliases": [
+      "add to thread"
+    ],
+    "method": "PUT",
+    "path": "/channels/:thread_id/thread-members/:user_id",
+    "description": "Add a user to a private thread.",
+    "pack": "COMMUNITY",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "thread_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "thread_id",
+        "user_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.remove_thread_member",
+    "aliases": [
+      "remove from thread"
+    ],
+    "method": "DELETE",
+    "path": "/channels/:thread_id/thread-members/:user_id",
+    "description": "Remove a user from a thread.",
+    "pack": "COMMUNITY",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "thread_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "thread_id",
+        "user_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.create_forum_post",
+    "aliases": [
+      "create forum thread"
+    ],
+    "method": "POST",
+    "path": "/channels/:channel_id/threads",
+    "description": "Create a forum post (thread) with optional applied tags.",
+    "pack": "COMMUNITY",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "message": {
+          "type": "object"
+        },
+        "applied_tags": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "channel_id",
+        "name"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_guild_widget",
+    "aliases": [
+      "guild widget"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/widget",
+    "description": "Get the guild widget settings.",
+    "pack": "ADMIN",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.modify_guild_widget",
+    "aliases": [
+      "edit guild widget"
+    ],
+    "method": "PATCH",
+    "path": "/guilds/:guild_id/widget",
+    "description": "Modify the guild widget (enabled, channel).",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "channel_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_vanity_url",
+    "aliases": [
+      "vanity url"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/vanity-url",
+    "description": "Get the guild vanity URL (if available).",
+    "pack": "ADMIN",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.modify_vanity_url",
+    "aliases": [
+      "set vanity url"
+    ],
+    "method": "PATCH",
+    "path": "/guilds/:guild_id/vanity-url",
+    "description": "Set the guild vanity URL (requires permissions).",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id",
+        "code"
+      ]
+    }
+  },
+  {
+    "name": "discord.list_guild_integrations",
+    "aliases": [
+      "integrations"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/integrations",
+    "description": "List guild integrations (requires permissions).",
+    "pack": "ADMIN",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.delete_channel_permission",
+    "aliases": [
+      "remove channel overwrite"
+    ],
+    "method": "DELETE",
+    "path": "/channels/:channel_id/permissions/:overwrite_id",
+    "description": "Delete a permission overwrite on a channel.",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "overwrite_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id",
+        "overwrite_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_guild_onboarding",
+    "aliases": [
+      "onboarding"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/onboarding",
+    "description": "Get guild onboarding configuration.",
+    "pack": "ADMIN",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.modify_guild_onboarding",
+    "aliases": [
+      "edit onboarding"
+    ],
+    "method": "PUT",
+    "path": "/guilds/:guild_id/onboarding",
+    "description": "Modify guild onboarding configuration.",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "default_channel_ids": {
+          "type": "array"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "prompts": {
+          "type": "array"
+        },
+        "mode": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.set_forum_tags",
+    "aliases": [
+      "set available tags"
+    ],
+    "method": "PATCH",
+    "path": "/channels/:channel_id",
+    "description": "Set available forum tags on a forum/media channel (available_tags).",
+    "pack": "COMMUNITY",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "available_tags": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "channel_id",
+        "available_tags"
+      ]
+    }
+  },
+  {
+    "name": "discord.create_guild_template",
+    "aliases": [
+      "create template"
+    ],
+    "method": "POST",
+    "path": "/guilds/:guild_id/templates",
+    "description": "Create a new guild template.",
+    "pack": "DEVTOOLS",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id",
+        "name"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_guild_template_by_code",
+    "aliases": [
+      "get template by code"
+    ],
+    "method": "GET",
+    "path": "/guilds/templates/:code",
+    "description": "Get a template by code (read-only).",
+    "pack": "DEVTOOLS",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code"
+      ]
+    }
+  },
+  {
+    "name": "discord.modify_guild_template",
+    "aliases": [
+      "edit template"
+    ],
+    "method": "PATCH",
+    "path": "/guilds/:guild_id/templates/:code",
+    "description": "Modify a guild template's metadata.",
+    "pack": "DEVTOOLS",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id",
+        "code"
+      ]
+    }
+  },
+  {
+    "name": "discord.delete_guild_template",
+    "aliases": [
+      "delete template"
+    ],
+    "method": "DELETE",
+    "path": "/guilds/:guild_id/templates/:code",
+    "description": "Delete a guild template.",
+    "pack": "DEVTOOLS",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id",
+        "code"
+      ]
+    }
+  },
+  {
+    "name": "discord.modify_own_voice_state",
+    "aliases": [
+      "set my voice state"
+    ],
+    "method": "PATCH",
+    "path": "/guilds/:guild_id/voice-states/@me",
+    "description": "Modify the bot's voice state in a guild (channel_id, suppress, request_to_speak_timestamp).",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "channel_id": {
+          "type": "string"
+        },
+        "suppress": {
+          "type": "boolean"
+        },
+        "request_to_speak_timestamp": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.modify_user_voice_state",
+    "aliases": [
+      "set user voice state"
+    ],
+    "method": "PATCH",
+    "path": "/guilds/:guild_id/voice-states/:user_id",
+    "description": "Update another user's voice state (requires elevated permissions; often restricted).",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "channel_id": {
+          "type": "string"
+        },
+        "suppress": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "guild_id",
+        "user_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_guild_command_permissions",
+    "aliases": [
+      "command permissions (OAuth)"
+    ],
+    "method": "GET",
+    "path": "/applications/:application_id/guilds/:guild_id/commands/:command_id/permissions",
+    "description": "Get command permissions (requires OAuth bearer token; not available with bot tokens).",
+    "pack": "OAUTH_ONLY",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "application_id": {
+          "type": "string"
+        },
+        "guild_id": {
+          "type": "string"
+        },
+        "command_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "application_id",
+        "guild_id",
+        "command_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.list_soundboard_sounds",
+    "aliases": [
+      "soundboard list"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/soundboard-sounds",
+    "description": "[EXPERIMENTAL] List soundboard sounds for a guild (undocumented; may change).",
+    "pack": "EXPERIMENTAL",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.create_soundboard_sound",
+    "aliases": [
+      "soundboard create"
+    ],
+    "method": "POST",
+    "path": "/guilds/:guild_id/soundboard-sounds",
+    "description": "[EXPERIMENTAL] Create a soundboard sound (fields may change).",
+    "pack": "EXPERIMENTAL",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "file_base64": {
+          "type": "string"
+        },
+        "volume": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "guild_id",
+        "name",
+        "file_base64"
+      ]
+    }
+  },
+  {
+    "name": "discord.modify_soundboard_sound",
+    "aliases": [
+      "soundboard edit"
+    ],
+    "method": "PATCH",
+    "path": "/guilds/:guild_id/soundboard-sounds/:sound_id",
+    "description": "[EXPERIMENTAL] Modify a soundboard sound (fields may change).",
+    "pack": "EXPERIMENTAL",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "sound_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "volume": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "guild_id",
+        "sound_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.delete_soundboard_sound",
+    "aliases": [
+      "soundboard delete"
+    ],
+    "method": "DELETE",
+    "path": "/guilds/:guild_id/soundboard-sounds/:sound_id",
+    "description": "[EXPERIMENTAL] Delete a soundboard sound.",
+    "pack": "EXPERIMENTAL",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "sound_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id",
+        "sound_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_invite",
+    "aliases": [
+      "fetch invite"
+    ],
+    "method": "GET",
+    "path": "/invites/:code",
+    "description": "Get an invite by code (supports with_counts, with_expiration).",
+    "pack": "COMMUNITY",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "with_counts": {
+          "type": "boolean"
+        },
+        "with_expiration": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "code"
+      ]
+    }
+  },
+  {
+    "name": "discord.list_active_threads_channel",
+    "aliases": [
+      "active threads (channel)"
+    ],
+    "method": "GET",
+    "path": "/channels/:channel_id/threads/active",
+    "description": "List active threads in a channel.",
+    "pack": "COMMUNITY",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.list_active_threads_guild",
+    "aliases": [
+      "active threads (guild)"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/threads/active",
+    "description": "List active threads in a guild.",
+    "pack": "COMMUNITY",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.modify_stage_instance",
+    "aliases": [
+      "edit stage"
+    ],
+    "method": "PATCH",
+    "path": "/stage-instances/:channel_id",
+    "description": "Modify a stage instance (topic/privacy).",
+    "pack": "COMMUNITY",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "topic": {
+          "type": "string"
+        },
+        "privacy_level": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "channel_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.list_guild_webhooks",
+    "aliases": [
+      "webhooks (guild)"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/webhooks",
+    "description": "List all webhooks in a guild.",
+    "pack": "DEVTOOLS",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_guild_ban",
+    "aliases": [
+      "ban info"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/bans/:user_id",
+    "description": "Get a single guild ban by user ID.",
+    "pack": "ADMIN",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id",
+        "user_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.list_sticker_packs",
+    "aliases": [
+      "sticker packs"
+    ],
+    "method": "GET",
+    "path": "/sticker-packs",
+    "description": "List Nitro sticker packs (read-only).",
+    "pack": "MEDIA",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    }
+  },
+  {
+    "name": "discord.get_sticker",
+    "aliases": [
+      "sticker info"
+    ],
+    "method": "GET",
+    "path": "/stickers/:sticker_id",
+    "description": "Get a public sticker by ID (read-only).",
+    "pack": "MEDIA",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "sticker_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "sticker_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.set_role_connections_metadata",
+    "aliases": [
+      "linked roles metadata"
+    ],
+    "method": "PUT",
+    "path": "/applications/:application_id/role-connections/metadata",
+    "description": "Set application role connections (linked roles) metadata.",
+    "pack": "DEVTOOLS",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "application_id": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "application_id",
+        "metadata"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_original_interaction_response",
+    "aliases": [
+      "get original interaction response"
+    ],
+    "method": "GET",
+    "path": "/webhooks/:application_id/:interaction_token/messages/@original",
+    "description": "Get the original interaction response message.",
+    "pack": "DEVTOOLS",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "application_id": {
+          "type": "string"
+        },
+        "interaction_token": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "application_id",
+        "interaction_token"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_guild_preview",
+    "aliases": [
+      "guild preview"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/preview",
+    "description": "Get a guild preview (public info, if available).",
+    "pack": "ADMIN",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_scheduled_event",
+    "aliases": [
+      "get event"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/scheduled-events/:event_id",
+    "description": "Get a single scheduled event by ID.",
+    "pack": "COMMUNITY",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "event_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id",
+        "event_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.bulk_overwrite_commands_global",
+    "aliases": [
+      "bulk overwrite commands"
+    ],
+    "method": "PUT",
+    "path": "/applications/:application_id/commands",
+    "description": "Bulk overwrite global application commands (deploy pipeline use).",
+    "pack": "DEVTOOLS",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "application_id": {
+          "type": "string"
+        },
+        "commands": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "application_id",
+        "commands"
+      ]
+    }
+  },
+  {
+    "name": "discord.bulk_overwrite_commands_guild",
+    "aliases": [
+      "bulk overwrite guild commands"
+    ],
+    "method": "PUT",
+    "path": "/applications/:application_id/guilds/:guild_id/commands",
+    "description": "Bulk overwrite guild application commands.",
+    "pack": "DEVTOOLS",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "application_id": {
+          "type": "string"
+        },
+        "guild_id": {
+          "type": "string"
+        },
+        "commands": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "application_id",
+        "guild_id",
+        "commands"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_command_global",
+    "aliases": [
+      "get command"
+    ],
+    "method": "GET",
+    "path": "/applications/:application_id/commands/:command_id",
+    "description": "Get a single global application command.",
+    "pack": "DEVTOOLS",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "application_id": {
+          "type": "string"
+        },
+        "command_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "application_id",
+        "command_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_command_guild",
+    "aliases": [
+      "get guild command"
+    ],
+    "method": "GET",
+    "path": "/applications/:application_id/guilds/:guild_id/commands/:command_id",
+    "description": "Get a single guild application command.",
+    "pack": "DEVTOOLS",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "application_id": {
+          "type": "string"
+        },
+        "guild_id": {
+          "type": "string"
+        },
+        "command_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "application_id",
+        "guild_id",
+        "command_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_role_connections_metadata",
+    "aliases": [
+      "get linked roles metadata"
+    ],
+    "method": "GET",
+    "path": "/applications/:application_id/role-connections/metadata",
+    "description": "Get application role-connections (linked roles) metadata.",
+    "pack": "DEVTOOLS",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "application_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "application_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.modify_guild_welcome_screen",
+    "aliases": [
+      "edit welcome screen"
+    ],
+    "method": "PATCH",
+    "path": "/guilds/:guild_id/welcome-screen",
+    "description": "Modify the guild's Welcome Screen (Manage Guild required).",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "welcome_channels": {
+          "type": "array"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.modify_guild_channel_positions",
+    "aliases": [
+      "reorder channels"
+    ],
+    "method": "PATCH",
+    "path": "/guilds/:guild_id/channels",
+    "description": "Modify positions/parents of channels in a guild.",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "positions": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "guild_id",
+        "positions"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_guild_widget_json",
+    "aliases": [
+      "guild widget json"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/widget.json",
+    "description": "Get the public guild widget JSON (if enabled).",
+    "pack": "COMMUNITY",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_guild_widget_image",
+    "aliases": [
+      "guild widget image"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/widget.png",
+    "description": "Get the public guild widget image (PNG). Optional 'style' query parameter.",
+    "pack": "COMMUNITY",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "style": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.modify_guild_mfa_level",
+    "aliases": [
+      "set guild mfa"
+    ],
+    "method": "POST",
+    "path": "/guilds/:guild_id/mfa",
+    "description": "Modify a guild's MFA level (owner 2FA required).",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "level": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "guild_id",
+        "level"
+      ]
+    }
+  },
+  {
+    "name": "discord.modify_guild_sticker",
+    "aliases": [
+      "edit guild sticker"
+    ],
+    "method": "PATCH",
+    "path": "/guilds/:guild_id/stickers/:sticker_id",
+    "description": "Modify a guild sticker (name/description/tags).",
+    "pack": "MEDIA",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "sticker_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id",
+        "sticker_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.list_guild_channels",
+    "aliases": [
+      "channels list"
+    ],
+    "method": "GET",
+    "path": "/guilds/:guild_id/channels",
+    "description": "List all channels in a guild (excludes threads).",
+    "pack": "ADMIN",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.bulk_delete_messages",
+    "aliases": [
+      "purge messages"
+    ],
+    "method": "POST",
+    "path": "/channels/:channel_id/messages/bulk-delete",
+    "description": "Bulk delete 2\u2013100 messages (cannot delete messages older than 14 days).",
+    "pack": "CORE",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "messages": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "channel_id",
+        "messages"
+      ]
+    }
+  },
+  {
+    "name": "discord.get_channel",
+    "aliases": [
+      "channel info"
+    ],
+    "method": "GET",
+    "path": "/channels/:channel_id",
+    "description": "Get a channel by ID.",
+    "pack": "ADMIN",
+    "confirm": false,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id"
+      ]
+    }
+  },
+  {
+    "name": "discord.delete_reactions_for_emoji",
+    "aliases": [
+      "clear emoji reactions"
+    ],
+    "method": "DELETE",
+    "path": "/channels/:channel_id/messages/:message_id/reactions/:emoji",
+    "description": "Delete all reactions for a specific emoji on a message.",
+    "pack": "CORE",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "message_id": {
+          "type": "string"
+        },
+        "emoji": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "channel_id",
+        "message_id",
+        "emoji"
+      ]
+    }
+  },
+  {
+    "name": "discord.modify_my_nickname",
+    "aliases": [
+      "set my nick"
+    ],
+    "method": "PATCH",
+    "path": "/guilds/:guild_id/members/@me",
+    "description": "Modify the bot's nickname in a guild.",
+    "pack": "ADMIN",
+    "confirm": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "guild_id": {
+          "type": "string"
+        },
+        "nick": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_id",
+        "nick"
+      ]
+    }
+  }
+]
