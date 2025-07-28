@@ -14,7 +14,7 @@ A **Model Context Protocol** server that provides AI agents with secure access t
 
 ```bash
 # Clone and install
-git clone <repo-url>
+git clone https://github.com/GustyCube/discord-mcp
 cd discord-mcp
 npm install
 
