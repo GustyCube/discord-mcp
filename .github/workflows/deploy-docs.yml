@@ -37,7 +37,10 @@ jobs:
         run: npm ci
       
       - name: Build documentation
-        run: npm run docs:build
+        run: |
+          npm run docs:build
+          # Create .nojekyll file to ensure proper serving of files starting with underscore
+          touch docs/.vitepress/dist/.nojekyll
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

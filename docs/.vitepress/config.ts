@@ -3,10 +3,12 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: 'Discord MCP',
   description: 'Discord MCP server: route-generated tools + Gateway events for Model Context Protocol clients',
-  base: '/discord-mcp/', // GitHub repository name
+  base: '/discord-mcp/',
+  head: [
+    ['link', { rel: 'icon', href: '/discord-mcp/favicon.ico' }]
+  ],
   
   themeConfig: {
-    logo: '/logo.svg',
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Guide', link: '/guide/' },
