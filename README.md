@@ -1,65 +1,76 @@
-# discord-mcp
+# Discord MCP Server
 
-Private repo for a **Model Context Protocol** server that exposes Discord APIs (REST + Gateway) as safe MCP tools.
+A **Model Context Protocol** server that provides AI agents with secure access to Discord's REST API and Gateway events.
 
-- **Route generator:** declarative catalog → tools with names, descriptions, JSON schemas.
-- **Gateway events:** queue with subscribe/get/info tools.
-- **Safety:** guild/channel allow-lists, human-in-the-loop confirmations, allowed mentions = none by default.
-- **Packs:** CORE (always), ADMIN, MEDIA, COMMUNITY, DEVTOOLS.
+## Features
 
-## Quick start
+🔧 **120+ Discord API Tools** - Complete coverage of Discord's REST API  
+🔒 **Security First** - Guild/channel allowlists, safe defaults, no accidental mentions  
+⚡ **Real-time Events** - Gateway integration for live Discord activity  
+🎯 **Smart Routing** - Auto-generated tools from declarative API catalog  
+📦 **Modular Packs** - Enable only the functionality you need  
+
+## Quick Start
 
 ```bash
-npm i
-cp .env.example .env
-# enable packs if desired
-echo "PACK_ADMIN=1" >> .env
-echo "PACK_MEDIA=1" >> .env
-echo "PACK_COMMUNITY=1" >> .env
-echo "PACK_DEVTOOLS=1" >> .env
+# Clone and install
+git clone <repo-url>
+cd discord-mcp
+npm install
 
-npm run dev  # stdio transport
+# Configure your bot
+cp .env.example .env
+# Add your DISCORD_BOT_TOKEN and other settings
+
+# Build and run
+npm run build
+npm start
 ```
 
-### Example: Claude Desktop `mcp.json`
+## Documentation
+
+📖 **Complete documentation available at [discord-mcp.gustycube.com](https://discord-mcp.gustycube.com/)**
+
+### Quick Links
+- [Getting Started](https://discord-mcp.gustycube.com/getting-started)
+- [Configuration](https://discord-mcp.gustycube.com/configuration) 
+- [Available Tools](https://discord-mcp.gustycube.com/tools)
+- [Security Model](https://discord-mcp.gustycube.com/security)
+- [Examples](https://discord-mcp.gustycube.com/examples)
+
+## Example: Claude Desktop Integration
+
+Add to your `mcp.json`:
+
 ```json
 {
   "mcpServers": {
     "discord": {
       "command": "node",
-      "args": ["dist/index.js"],
+      "args": ["/path/to/discord-mcp/dist/index.js"],
       "env": {
-        "DISCORD_BOT_TOKEN": "****",
-        "ALLOW_GUILD_IDS": "123,456",
-        "ALLOW_CHANNEL_IDS": "789,012",
-        "ALLOWED_MENTIONS": "none",
-        "GATEWAY_INTENTS": "1<<0|1<<9",
-        "PACK_ADMIN": "1",
-        "PACK_MEDIA": "1",
-        "PACK_COMMUNITY": "1",
-        "PACK_DEVTOOLS": "1"
+        "DISCORD_BOT_TOKEN": "your_bot_token_here",
+        "ALLOW_GUILD_IDS": "123456789,987654321",
+        "ALLOW_CHANNEL_IDS": "111111111,222222222"
       }
     }
   }
 }
 ```
 
-## Documentation
+## What You Can Do
 
-- [Configuration](docs/configuration.md)
-- [Route Generator](docs/route-generator.md)
-- [Gateway Events](docs/gateway.md)
-- [Security Model](docs/security.md)
-- [Tooling & Packs](docs/packs.md)
-- [Troubleshooting](docs/troubleshooting.md)
-- [FAQ](docs/faq.md)
+- **📝 Message Management** - Send, edit, delete messages and reactions
+- **👥 User & Guild Info** - Get user profiles, guild details, member lists  
+- **🔊 Channel Operations** - List channels, manage permissions, create threads
+- **🎭 Rich Content** - Send embeds, manage webhooks, upload files
+- **⚡ Live Events** - Subscribe to message events, member joins, etc.
+- **🛡️ Moderation** - Manage bans, kicks, roles (with appropriate permissions)
+
+## Contributing
+
+See the [full documentation](https://discord-mcp.gustycube.com/) for development setup, API reference, and contribution guidelines.
 
 ## License
 
-MIT (see `LICENSE`). For now this repo is **private**.
-
-
-See **[Examples](docs/examples.md)** for common MCP tool calls.
-
-
-> Packs also include **EXPERIMENTAL** (unstable/undocumented) and **OAUTH_ONLY** (requires user OAuth bearer; not usable with bot tokens).
+MIT License - see [LICENSE](LICENSE) file for details.
