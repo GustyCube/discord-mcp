@@ -31,7 +31,8 @@ export function removeUserReactionTool(dc: DiscordClient, policy: Policy): ToolH
       const { channel_id, message_id, emoji, user_id } = input as any;
       if (!policy.allowChannel(channel_id)) throw new Error('Channel not allowed by policy');
       const rest = (dc as any)['rest'] as REST;
-      await rest.delete(Routes.channelMessageReaction(channel_id, message_id, emoji) + '/' + user_id);
+      const route = Routes.channelMessageReaction(channel_id, message_id, emoji);
+      await rest.delete(`${route}/${user_id}` as `/${string}`);
       yield { content: [{ type: 'text', text: 'ok' }] };
     }
   };

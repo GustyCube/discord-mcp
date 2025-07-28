@@ -47,7 +47,13 @@ function jsonSchemaToZod(schema: any): z.ZodTypeAny {
 function replacePathParams(path: string, params: Record<string,string>){
   let out = path;
   for (const [k,v] of Object.entries(params)) {
-    out = out.replace(new RegExp(`:${k}\b`,'g'), encodeURIComponent(String(v)));
+    // Use simple string replacement instead of regex for better performance
+    const placeholder = `:${k}`;
+    const encoded = encodeURIComponent(String(v));
+    // Replace all occurrences
+    while (out.includes(placeholder)) {
+      out = out.replace(placeholder, encoded);
+    }
   }
   return out;
 }
@@ -86,8 +92,8 @@ export function generateTools(catalog: CatalogEntry[], dc: DiscordClient, policy
       name,
       description: desc,
       inputSchema: inputSchema,
-      async *handler({ input }: { input: any }){
-        const data = input as any;
+      async *handler({ input }) {
+        const data = input;
         // Allow-lists (best-effort): block if channel_id/guild_id present and not allowed
         if (data.channel_id && !policy.allowChannel(String(data.channel_id))) throw new Error('Channel not allowed by policy');
         if (data.guild_id && !policy.allowGuild(String(data.guild_id))) throw new Error('Guild not allowed by policy');
@@ -116,6 +122,18 @@ export function generateTools(catalog: CatalogEntry[], dc: DiscordClient, policy
         } else {
           // Special-case allowed_mentions default for message posts
           if (name.startsWith('discord.post_message') || name === 'discord.reply' || apiPath.includes('/messages')) {
+            // Validate allowed_mentions if provided by user
+            if (payload.allowed_mentions && typeof payload.allowed_mentions === 'object') {
+              const am = payload.allowed_mentions;
+              // Ensure parse array contains only valid values
+              if (am.parse && Array.isArray(am.parse)) {
+                const validParse = ['users', 'roles', 'everyone'];
+                am.parse = am.parse.filter((p: string) => validParse.includes(p));
+              }
+              // Ensure arrays are actually arrays of strings
+              if (am.users && !Array.isArray(am.users)) delete am.users;
+              if (am.roles && !Array.isArray(am.roles)) delete am.roles;
+            }
             payload.allowed_mentions = payload.allowed_mentions ?? options.defaultAllowedMentions;
           }
           restOptions.body = payload;

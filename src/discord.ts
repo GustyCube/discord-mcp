@@ -2,11 +2,34 @@ import { REST } from '@discordjs/rest';
 import type { RESTGetAPIChannelMessageResult, RESTGetAPIChannelMessagesQuery, RESTPatchAPIChannelMessageJSONBody, RESTPostAPIChannelMessageJSONBody, RESTPostAPIChannelThreadsJSONBody, RESTPostAPIWebhookWithTokenJSONBody } from 'discord-api-types/v10';
 import { Routes, type APIWebhook, type APIChannel, type APIGuild, type APIMessage } from 'discord-api-types/v10';
 import { request } from 'undici';
+import { DiscordAPIError } from './errors.js';
 
 export class DiscordClient {
   private rest: REST;
   constructor(token: string){
     this.rest = new REST({ version: '10' }).setToken(token);
+  }
+
+  /**
+   * Wrapper for REST requests with enhanced error handling
+   */
+  private async request<T>(
+    method: 'get' | 'post' | 'patch' | 'put' | 'delete',
+    route: string,
+    options?: any
+  ): Promise<T> {
+    try {
+      return await (this.rest as any)[method](route, options) as T;
+    } catch (error: any) {
+      const status = error?.status || 0;
+      const message = error?.message || 'Unknown error';
+      throw new DiscordAPIError(
+        `Discord API Error: ${message}`,
+        status,
+        route,
+        { method, ...options }
+      );
+    }
   }
 
   // Guilds: listing via REST with bot tokens is not supported; accept configured allow-list instead.
@@ -35,7 +58,11 @@ export class DiscordClient {
   }
 
   async fetchMessages(channelId: string, query: RESTGetAPIChannelMessagesQuery): Promise<APIMessage[]> {
-    return this.rest.get(Routes.channelMessages(channelId), { query: Object.fromEntries(Object.entries(query).map(([k,v]) => [k, String(v)])) }) as Promise<APIMessage[]>;
+    const queryParams = new URLSearchParams();
+    Object.entries(query).forEach(([k, v]) => {
+      if (v !== undefined) queryParams.set(k, String(v));
+    });
+    return this.rest.get(Routes.channelMessages(channelId), { query: queryParams }) as Promise<APIMessage[]>;
   }
 
   async getMessage(channelId: string, messageId: string): Promise<RESTGetAPIChannelMessageResult> {

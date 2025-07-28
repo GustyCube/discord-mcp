@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import 'dotenv/config';
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/index.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { generateTools } from './generator.js';
 import { searchToolsTool, helpTool, toolsIndexTool, type ToolDoc } from './tools/helpers.js';
@@ -22,7 +22,7 @@ import { addReactionTool, deleteReactionTool } from './tools/reaction_tools.js';
 import { createThreadTool } from './tools/create_thread.js';
 import { listWebhooksTool, createWebhookTool, executeWebhookTool, deleteWebhookTool } from './tools/webhook_tools.js';
 import { listPinsTool, pinMessageTool, unpinMessageTool } from './tools/pins.js';
-import { bulkDeleteMessagesTool } from './tools/bulk_delete.ts';
+import { bulkDeleteMessagesTool } from './tools/bulk_delete.js';
 import { listRolesTool, createRoleTool, deleteRoleTool } from './tools/roles.js';
 import { createChannelTool, editChannelTool, deleteChannelTool } from './tools/channels_admin.js';
 import { getUserTool, dmUserTool } from './tools/users.js';

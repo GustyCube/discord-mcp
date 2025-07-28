@@ -17,7 +17,8 @@ export function listBansTool(dc: DiscordClient): ToolHandler {
       if (limit) queryParams.set('limit', limit.toString());
       if (before) queryParams.set('before', before);
       if (after) queryParams.set('after', after);
-      const res = await rest.get(Routes.guildBans(guild_id) + (queryParams.toString() ? `?${queryParams.toString()}` : ''));
+      const route = Routes.guildBans(guild_id);
+      const res = await rest.get(queryParams.toString() ? `${route}?${queryParams.toString()}` as `/${string}` : route);
       yield { content: [{ type: 'json', text: JSON.stringify(res) }] };
     }
   };

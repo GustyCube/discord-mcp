@@ -9,8 +9,9 @@ export function listWebhooksTool(dc: DiscordClient, policy: Policy): ToolHandler
     name: 'discord.webhook_list',
     description: 'List webhooks for a channel.',
     inputSchema: input,
-    async *handler({ input }: { input: any }){
-      const { channel_id } = input as any;
+    async *handler({ input }) {
+      const validated = z.object({ channel_id: z.string() }).parse(input);
+      const { channel_id } = validated;
       if (!policy.allowChannel(channel_id)) throw new Error('Channel not allowed by policy');
       const hooks = await dc.listChannelWebhooks(channel_id);
       yield { content: [{ type: 'json', text: JSON.stringify(hooks) }] };
@@ -24,12 +25,14 @@ export function createWebhookTool(dc: DiscordClient, policy: Policy): ToolHandle
     name: 'discord.webhook_create',
     description: 'Create a webhook in a channel (requires MANAGE_WEBHOOKS).',
     inputSchema: input,
-    async *handler({ input }: { input: any }){
-      const { channel_id, name } = input as any;
+    async *handler({ input }) {
+      const validated = z.object({ channel_id: z.string(), name: z.string().max(80) }).parse(input);
+      const { channel_id, name } = validated;
       if (!policy.allowChannel(channel_id)) throw new Error('Channel not allowed by policy');
       const hook = await dc.createWebhook(channel_id, name);
-      // Do NOT expose webhook token unless explicitly requested; redact by default
-      const redacted = { ...hook, token: hook.token ? 'redacted' : undefined };
+      // Ensure webhook token is never exposed in responses, logs, or error messages
+      const { token, ...safeHook } = hook;
+      const redacted = { ...safeHook, token: token ? '[REDACTED]' : undefined };
       yield { content: [{ type: 'json', text: JSON.stringify(redacted) }] };
     }
   };
@@ -48,8 +51,16 @@ export function executeWebhookTool(dc: DiscordClient): ToolHandler {
     name: 'discord.webhook_execute',
     description: 'Execute a webhook by id+token to post content.',
     inputSchema: input,
-    async *handler({ input }: { input: any }){
-      const { webhook_id, token, content, username, avatar_url, tts } = input as any;
+    async *handler({ input }) {
+      const validated = z.object({
+        webhook_id: z.string(),
+        token: z.string().describe('Webhook token (treat as secret)'),
+        content: z.string().max(4000).optional(),
+        username: z.string().optional(),
+        avatar_url: z.string().url().optional(),
+        tts: z.boolean().optional()
+      }).refine((data: { content?: string }) => !!data.content, { message: 'content is required' }).parse(input);
+      const { webhook_id, token, content, username, avatar_url, tts } = validated;
       const msg = await dc.executeWebhook(webhook_id, token, { content, username, avatar_url, tts });
       yield { content: [{ type: 'json', text: JSON.stringify(msg) }] };
     }
@@ -62,8 +73,9 @@ export function deleteWebhookTool(dc: DiscordClient): ToolHandler {
     name: 'discord.webhook_delete',
     description: 'Delete a webhook by id.',
     inputSchema: input,
-    async *handler({ input }: { input: any }){
-      const { webhook_id } = input as any;
+    async *handler({ input }) {
+      const validated = z.object({ webhook_id: z.string() }).parse(input);
+      const { webhook_id } = validated;
       await dc.deleteWebhook(webhook_id);
       yield { content: [{ type: 'text', text: 'ok' }] };
     }

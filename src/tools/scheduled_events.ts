@@ -15,7 +15,8 @@ export function listScheduledEventsTool(dc: DiscordClient): ToolHandler {
       const rest = (dc as any)['rest'] as REST;
       const queryParams = new URLSearchParams();
       if (with_user_count) queryParams.set('with_user_count', 'true');
-      const res = await rest.get(Routes.guildScheduledEvents(guild_id) + (queryParams.toString() ? `?${queryParams.toString()}` : ''));
+      const route = Routes.guildScheduledEvents(guild_id);
+      const res = await rest.get((queryParams.toString() ? `${route}?${queryParams.toString()}` : route) as `/${string}`);
       yield { content: [{ type: 'json', text: JSON.stringify(res) }] };
     }
   };

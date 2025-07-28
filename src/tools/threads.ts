@@ -18,7 +18,8 @@ export function listPublicArchivedThreadsTool(dc: DiscordClient, policy: Policy)
       const queryParams = new URLSearchParams();
       if (before) queryParams.set('before', before);
       if (limit) queryParams.set('limit', limit.toString());
-      const res = await rest.get(`/channels/${channel_id}/threads/archived/public` + (queryParams.toString() ? `?${queryParams.toString()}` : ''));
+      const route = `/channels/${channel_id}/threads/archived/public`;
+      const res = await rest.get((queryParams.toString() ? `${route}?${queryParams.toString()}` : route) as `/${string}`);
       yield { content: [{ type: 'json', text: JSON.stringify(res) }] };
     }
   };
@@ -37,7 +38,8 @@ export function listPrivateArchivedThreadsTool(dc: DiscordClient, policy: Policy
       const queryParams = new URLSearchParams();
       if (before) queryParams.set('before', before);
       if (limit) queryParams.set('limit', limit.toString());
-      const res = await rest.get(`/channels/${channel_id}/threads/archived/private` + (queryParams.toString() ? `?${queryParams.toString()}` : ''));
+      const route = `/channels/${channel_id}/threads/archived/private`;
+      const res = await rest.get((queryParams.toString() ? `${route}?${queryParams.toString()}` : route) as `/${string}`);
       yield { content: [{ type: 'json', text: JSON.stringify(res) }] };
     }
   };
@@ -56,7 +58,8 @@ export function listJoinedPrivateArchivedThreadsTool(dc: DiscordClient, policy: 
       const queryParams = new URLSearchParams();
       if (before) queryParams.set('before', before);
       if (limit) queryParams.set('limit', limit.toString());
-      const res = await rest.get(Routes.channelJoinedArchivedThreads(channel_id) + (queryParams.toString() ? `?${queryParams.toString()}` : ''));
+      const route = Routes.channelJoinedArchivedThreads(channel_id);
+      const res = await rest.get((queryParams.toString() ? `${route}?${queryParams.toString()}` : route) as `/${string}`);
       yield { content: [{ type: 'json', text: JSON.stringify(res) }] };
     }
   };
