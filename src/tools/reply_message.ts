@@ -11,7 +11,7 @@ export function replyMessageTool(dc: DiscordClient, policy: Policy, defaultAllow
     confirm: z.boolean().default(true)
   });
   return {
-    name: 'discord.reply',
+    name: 'discord_reply',
     description: 'Reply to a message in a thread (human-in-the-loop by default).',
     inputSchema: input,
     async *handler({ input }: { input: any }){
@@ -22,7 +22,7 @@ export function replyMessageTool(dc: DiscordClient, policy: Policy, defaultAllow
         return;
       }
       const msg = await dc.postMessage(channel_id, { content, message_reference: { message_id }, allowed_mentions: defaultAllowedMentions });
-      yield { content: [{ type: 'json', text: JSON.stringify(msg) }] };
+      yield { content: [{ type: 'text', text: JSON.stringify(msg) }] };
     }
   };
 }

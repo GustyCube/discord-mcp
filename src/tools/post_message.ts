@@ -10,7 +10,7 @@ export function postMessageTool(dc: DiscordClient, policy: Policy, defaultAllowe
     confirm: z.boolean().default(true)
   });
   return {
-    name: 'discord.post_message',
+    name: 'discord_post_message',
     description: 'Post a message to a channel (human-in-the-loop via confirm=true).',
     inputSchema: input,
     async *handler({ input }: { input: any }){
@@ -21,7 +21,7 @@ export function postMessageTool(dc: DiscordClient, policy: Policy, defaultAllowe
         return;
       }
       const msg = await dc.postMessage(channel_id, { content, allowed_mentions: defaultAllowedMentions });
-      yield { content: [{ type: 'json', text: JSON.stringify(msg) }] };
+      yield { content: [{ type: 'text', text: JSON.stringify(msg) }] };
     }
   };
 }

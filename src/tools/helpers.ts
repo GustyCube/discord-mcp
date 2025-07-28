@@ -14,13 +14,13 @@ export type ToolDoc = {
 export function searchToolsTool(index: ToolDoc[]): ToolHandler {
   const input = z.object({ query: z.string() });
   return {
-    name: 'discord.search_tools',
+    name: 'discord_search_tools',
     description: 'Search Discord tools by name/alias/description.',
     inputSchema: input,
     async *handler({ input }: { input: any }){
       const q = (input as any).query.toLowerCase();
       const hits = index.filter(t => t.name.toLowerCase().includes(q) || (t.aliases||[]).some(a=>a.toLowerCase().includes(q)) || t.description.toLowerCase().includes(q));
-      yield { content: [{ type: 'json', text: JSON.stringify(hits) }] };
+      yield { content: [{ type: 'text', text: JSON.stringify(hits) }] };
     }
   };
 }
@@ -28,7 +28,7 @@ export function searchToolsTool(index: ToolDoc[]): ToolHandler {
 export function helpTool(index: ToolDoc[]): ToolHandler {
   const input = z.object({ tool_name: z.string() });
   return {
-    name: 'discord.help',
+    name: 'discord_help',
     description: 'Show details and a usage example for a tool.',
     inputSchema: input,
     async *handler({ input }: { input: any }){
@@ -47,7 +47,7 @@ export function helpTool(index: ToolDoc[]): ToolHandler {
 export function toolsIndexTool(index: ToolDoc[]): ToolHandler {
   const input = z.object({});
   return {
-    name: 'discord.tools_index',
+    name: 'discord_tools_index',
     description: 'Emit a Markdown index of all available Discord tools.',
     inputSchema: input,
     async *handler(){

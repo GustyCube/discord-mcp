@@ -7,13 +7,13 @@ import { DiscordClient } from '../discord.js';
 export function getUserTool(dc: DiscordClient): ToolHandler {
   const input = z.object({ user_id: z.string() });
   return {
-    name: 'discord.get_user',
+    name: 'discord_get_user',
     description: 'Get a user by ID.',
     inputSchema: input,
     async *handler({ input }: { input: any }){
       const rest = (dc as any)['rest'] as REST;
       const user = await rest.get(Routes.user((input as any).user_id)) as APIUser;
-      yield { content: [{ type: 'json', text: JSON.stringify(user) }] };
+      yield { content: [{ type: 'text', text: JSON.stringify(user) }] };
     }
   };
 }
@@ -21,7 +21,7 @@ export function getUserTool(dc: DiscordClient): ToolHandler {
 export function dmUserTool(dc: DiscordClient): ToolHandler {
   const input = z.object({ user_id: z.string(), content: z.string().max(4000), confirm: z.boolean().default(true) });
   return {
-    name: 'discord.dm_user',
+    name: 'discord_dm_user',
     description: 'Send a DM to a user (human-in-the-loop by default).',
     inputSchema: input,
     async *handler({ input }: { input: any }){
@@ -33,7 +33,7 @@ export function dmUserTool(dc: DiscordClient): ToolHandler {
       }
       const dm = await rest.post(Routes.userChannels(), { body: { recipient_id: user_id } }) as any;
       const msg = await rest.post(Routes.channelMessages(dm.id), { body: { content } });
-      yield { content: [{ type: 'json', text: JSON.stringify(msg) }] };
+      yield { content: [{ type: 'text', text: JSON.stringify(msg) }] };
     }
   };
 }

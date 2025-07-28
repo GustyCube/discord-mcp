@@ -8,7 +8,7 @@ import { Policy } from '../policy.js';
 export function triggerTypingTool(dc: DiscordClient, policy: Policy): ToolHandler {
   const input = z.object({ channel_id: z.string() });
   return {
-    name: 'discord.trigger_typing',
+    name: 'discord_trigger_typing',
     description: 'Trigger typing indicator in a channel.',
     inputSchema: input,
     async *handler({ input }: { input: any }){

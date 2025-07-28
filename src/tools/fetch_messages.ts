@@ -11,14 +11,14 @@ export function fetchMessagesTool(dc: DiscordClient, policy: Policy): ToolHandle
     after: z.string().optional()
   });
   return {
-    name: 'discord.fetch_messages',
+    name: 'discord_fetch_messages',
     description: 'Fetch recent messages in a channel (paginated).',
     inputSchema: input,
     async *handler({ input }: { input: any }){
       const { channel_id, limit, before, after } = input as any;
       if (!policy.allowChannel(channel_id)) throw new Error('Channel not allowed by policy');
       const msgs = await dc.fetchMessages(channel_id, { limit, before, after });
-      yield { content: [{ type: 'json', text: JSON.stringify(msgs) }] };
+      yield { content: [{ type: 'text', text: JSON.stringify(msgs) }] };
     }
   };
 }

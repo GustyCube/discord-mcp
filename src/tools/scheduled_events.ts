@@ -7,7 +7,7 @@ import { DiscordClient } from '../discord.js';
 export function listScheduledEventsTool(dc: DiscordClient): ToolHandler {
   const input = z.object({ guild_id: z.string(), with_user_count: z.boolean().default(false) });
   return {
-    name: 'discord.list_scheduled_events',
+    name: 'discord_list_scheduled_events',
     description: 'List scheduled events in a guild.',
     inputSchema: input,
     async *handler({ input }: { input: any }){
@@ -17,7 +17,7 @@ export function listScheduledEventsTool(dc: DiscordClient): ToolHandler {
       if (with_user_count) queryParams.set('with_user_count', 'true');
       const route = Routes.guildScheduledEvents(guild_id);
       const res = await rest.get((queryParams.toString() ? `${route}?${queryParams.toString()}` : route) as `/${string}`);
-      yield { content: [{ type: 'json', text: JSON.stringify(res) }] };
+      yield { content: [{ type: 'text', text: JSON.stringify(res) }] };
     }
   };
 }
@@ -36,14 +36,14 @@ export function createScheduledEventTool(dc: DiscordClient): ToolHandler {
     image_base64: z.string().optional()
   });
   return {
-    name: 'discord.create_scheduled_event',
+    name: 'discord_create_scheduled_event',
     description: 'Create a scheduled event.',
     inputSchema: input,
     async *handler({ input }: { input: any }){
       const { guild_id, image_base64, ...body } = input as any;
       const rest = (dc as any)['rest'] as REST;
       const res = await rest.post(Routes.guildScheduledEvents(guild_id), { body: { ...body, image: image_base64 ? (image_base64.startsWith('data:') ? image_base64 : `data:image/png;base64,${image_base64}`) : undefined } });
-      yield { content: [{ type: 'json', text: JSON.stringify(res) }] };
+      yield { content: [{ type: 'text', text: JSON.stringify(res) }] };
     }
   };
 }
@@ -51,7 +51,7 @@ export function createScheduledEventTool(dc: DiscordClient): ToolHandler {
 export function deleteScheduledEventTool(dc: DiscordClient): ToolHandler {
   const input = z.object({ guild_id: z.string(), event_id: z.string() });
   return {
-    name: 'discord.delete_scheduled_event',
+    name: 'discord_delete_scheduled_event',
     description: 'Delete a scheduled event.',
     inputSchema: input,
     async *handler({ input }: { input: any }){

@@ -14,7 +14,7 @@ export function setChannelPermissionTool(dc: DiscordClient, policy: Policy): Too
     deny: z.string().default('0')
   });
   return {
-    name: 'discord.set_channel_permission',
+    name: 'discord_set_channel_permission',
     description: 'Set a permission overwrite on a channel (be careful).',
     inputSchema: input,
     async *handler({ input }: { input: any }){

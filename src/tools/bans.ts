@@ -7,7 +7,7 @@ import { DiscordClient } from '../discord.js';
 export function listBansTool(dc: DiscordClient): ToolHandler {
   const input = z.object({ guild_id: z.string(), limit: z.number().int().min(1).max(1000).optional(), before: z.string().optional(), after: z.string().optional() });
   return {
-    name: 'discord.list_bans',
+    name: 'discord_list_bans',
     description: 'List bans in a guild (paginated).',
     inputSchema: input,
     async *handler({ input }: { input: any }){
@@ -19,7 +19,7 @@ export function listBansTool(dc: DiscordClient): ToolHandler {
       if (after) queryParams.set('after', after);
       const route = Routes.guildBans(guild_id);
       const res = await rest.get(queryParams.toString() ? `${route}?${queryParams.toString()}` as `/${string}` : route);
-      yield { content: [{ type: 'json', text: JSON.stringify(res) }] };
+      yield { content: [{ type: 'text', text: JSON.stringify(res) }] };
     }
   };
 }
@@ -27,7 +27,7 @@ export function listBansTool(dc: DiscordClient): ToolHandler {
 export function banUserTool(dc: DiscordClient): ToolHandler {
   const input = z.object({ guild_id: z.string(), user_id: z.string(), delete_message_seconds: z.number().int().min(0).max(604800).default(0), reason: z.string().max(512).optional() });
   return {
-    name: 'discord.ban_user',
+    name: 'discord_ban_user',
     description: 'Ban a user from a guild.',
     inputSchema: input,
     async *handler({ input }: { input: any }){
@@ -42,7 +42,7 @@ export function banUserTool(dc: DiscordClient): ToolHandler {
 export function unbanUserTool(dc: DiscordClient): ToolHandler {
   const input = z.object({ guild_id: z.string(), user_id: z.string(), reason: z.string().optional() });
   return {
-    name: 'discord.unban_user',
+    name: 'discord_unban_user',
     description: 'Remove a ban from a user in a guild.',
     inputSchema: input,
     async *handler({ input }: { input: any }){

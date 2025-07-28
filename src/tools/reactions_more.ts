@@ -8,7 +8,7 @@ import { Policy } from '../policy.js';
 export function clearAllReactionsTool(dc: DiscordClient, policy: Policy): ToolHandler {
   const input = z.object({ channel_id: z.string(), message_id: z.string() });
   return {
-    name: 'discord.clear_all_reactions',
+    name: 'discord_clear_all_reactions',
     description: 'Remove all reactions from a message.',
     inputSchema: input,
     async *handler({ input }: { input: any }){
@@ -24,7 +24,7 @@ export function clearAllReactionsTool(dc: DiscordClient, policy: Policy): ToolHa
 export function removeUserReactionTool(dc: DiscordClient, policy: Policy): ToolHandler {
   const input = z.object({ channel_id: z.string(), message_id: z.string(), emoji: z.string(), user_id: z.string() });
   return {
-    name: 'discord.remove_user_reaction',
+    name: 'discord_remove_user_reaction',
     description: 'Remove a specific user’s reaction emoji (requires perms).',
     inputSchema: input,
     async *handler({ input }: { input: any }){

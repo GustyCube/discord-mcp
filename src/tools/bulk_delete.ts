@@ -8,7 +8,7 @@ import { REST } from '@discordjs/rest';
 export function bulkDeleteMessagesTool(dc: DiscordClient, policy: Policy): ToolHandler {
   const input = z.object({ channel_id: z.string(), message_ids: z.array(z.string()).min(2).max(100) });
   return {
-    name: 'discord.bulk_delete_messages',
+    name: 'discord_bulk_delete_messages',
     description: 'Bulk delete 2-100 messages (must be <14 days old).',
     inputSchema: input,
     async *handler({ input }: { input: any }){

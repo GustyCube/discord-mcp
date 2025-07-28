@@ -71,7 +71,7 @@ export function generateTools(catalog: CatalogEntry[], dc: DiscordClient, policy
   packsEnabled: Set<string>,
   defaultAllowedMentions: any
 }): GeneratedTool[] {
-  const rest = (dc as any)['rest'] as REST;
+  const rest = dc.getRest();
   const tools: GeneratedTool[] = [];
   for (const entry of catalog) {
     const pack = entry.pack ?? 'CORE';
@@ -80,9 +80,29 @@ export function generateTools(catalog: CatalogEntry[], dc: DiscordClient, policy
     // Build schema: path params + the schema's properties
     const pathParams = pickParamsForPath(entry.path);
     const baseSchema = entry.schema ?? { type: 'object', properties: {} };
-    const zodBody = jsonSchemaToZod(baseSchema);
-    const zodPath = z.object(Object.fromEntries(pathParams.map(p => [p, z.string()])));
-    const inputSchema = z.intersection(zodPath, zodBody);
+    
+    // Create a single z.object with all properties merged
+    const allProperties: Record<string, z.ZodTypeAny> = {};
+    
+    // Add path parameters as required strings
+    for (const param of pathParams) {
+      allProperties[param] = z.string();
+    }
+    
+    // Add body schema properties  
+    if (baseSchema.type === 'object' && baseSchema.properties) {
+      const requiredFields = new Set(baseSchema.required || []);
+      for (const [key, value] of Object.entries(baseSchema.properties)) {
+        let zodSchema = jsonSchemaToZod(value);
+        // Make field optional if it's not in the required array
+        if (!requiredFields.has(key)) {
+          zodSchema = zodSchema.optional();
+        }
+        allProperties[key] = zodSchema;
+      }
+    }
+    
+    const inputSchema = z.object(allProperties);
 
     const name = entry.name;
     const confirmDefault = Boolean(entry.confirm);
@@ -121,7 +141,7 @@ export function generateTools(catalog: CatalogEntry[], dc: DiscordClient, policy
           if (Object.keys(payload).length) restOptions.query = payload;
         } else {
           // Special-case allowed_mentions default for message posts
-          if (name.startsWith('discord.post_message') || name === 'discord.reply' || apiPath.includes('/messages')) {
+          if (name.startsWith('discord_post_message') || name === 'discord_reply' || apiPath.includes('/messages')) {
             // Validate allowed_mentions if provided by user
             if (payload.allowed_mentions && typeof payload.allowed_mentions === 'object') {
               const am = payload.allowed_mentions;
@@ -139,10 +159,11 @@ export function generateTools(catalog: CatalogEntry[], dc: DiscordClient, policy
           restOptions.body = payload;
         }
 
-        const route = apiPath.startsWith('/v10') ? apiPath : `/v10${apiPath}`;
-        const verb = entry.method.toLowerCase();
-        const result = await (rest as any)[verb](route, restOptions);
-        yield { content: [{ type: 'json', text: JSON.stringify(result) }] };
+        const route = apiPath.startsWith('/') ? apiPath : `/${apiPath}`;
+        const verb = entry.method.toLowerCase() as 'get' | 'post' | 'patch' | 'put' | 'delete';
+        
+        const result = await rest[verb](route as `/${string}`, restOptions) as any;
+        yield { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
       }
     };
 

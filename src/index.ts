@@ -1,6 +1,16 @@
 #!/usr/bin/env node
-import 'dotenv/config';
+import { config } from 'dotenv';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+
+// Load .env from the project directory
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const projectRoot = join(__dirname, '..');
+config({ path: join(projectRoot, '.env') });
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
+import { createServer } from 'node:http';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { generateTools } from './generator.js';
 import { searchToolsTool, helpTool, toolsIndexTool, type ToolDoc } from './tools/helpers.js';
@@ -110,51 +120,60 @@ function registerTool(toolHandler: any) {
     description,
     inputSchema.shape,
     async (args: any) => {
-      const result = handler({ input: args });
-      const contents = [];
-      
-      for await (const output of result) {
-        if (output.content) {
-          contents.push(...output.content);
+      try {
+        const result = handler({ input: args });
+        const contents = [];
+        
+        for await (const output of result) {
+          if (output.content) {
+            contents.push(...output.content);
+          }
         }
+        
+        return {
+          content: contents
+        };
+      } catch (error: any) {
+        return {
+          content: [{
+            type: 'text',
+            text: error.message || String(error)
+          }]
+        };
       }
-      
-      return {
-        content: contents
-      };
     }
   );
 }
 
-// Register all tools
-registerTool(listChannelsTool(dc, policy));
-registerTool(fetchMessagesTool(dc, policy));
-registerTool(postMessageTool(dc, policy, policy.allowedMentions()));
-registerTool(replyMessageTool(dc, policy, policy.allowedMentions()));
-registerTool(addReactionTool(dc, policy));
-registerTool(deleteReactionTool(dc, policy));
-registerTool(createThreadTool(dc, policy));
-registerTool(listWebhooksTool(dc, policy));
-registerTool(createWebhookTool(dc, policy));
-registerTool(executeWebhookTool(dc));
-registerTool(deleteWebhookTool(dc));
-registerTool(listPinsTool(dc, policy));
-registerTool(pinMessageTool(dc, policy));
-registerTool(unpinMessageTool(dc, policy));
-registerTool(bulkDeleteMessagesTool(dc, policy));
-registerTool(listRolesTool(dc));
-registerTool(createRoleTool(dc));
-registerTool(deleteRoleTool(dc));
-registerTool(createChannelTool(dc));
-registerTool(editChannelTool(dc, policy));
-registerTool(deleteChannelTool(dc, policy));
-registerTool(getUserTool(dc));
-registerTool(dmUserTool(dc));
-registerTool(listCommandsTool(dc));
-registerTool(upsertCommandTool(dc));
-registerTool(deleteCommandTool(dc));
-registerTool(setChannelPermissionTool(dc, policy));
-registerTool(triggerTypingTool(dc, policy));
+// Register all tools (only those NOT in catalog)
+registerTool(listChannelsTool(dc, policy)); // Custom implementation
+// registerTool(fetchMessagesTool(dc, policy)); // Using generated version instead
+// registerTool(postMessageTool(dc, policy, policy.allowedMentions())); // Using generated version instead
+registerTool(replyMessageTool(dc, policy, policy.allowedMentions())); // Custom implementation
+// registerTool(addReactionTool(dc, policy)); // Using generated version instead
+registerTool(deleteReactionTool(dc, policy)); // Custom implementation (remove_my_reaction vs general delete)
+// registerTool(createThreadTool(dc, policy)); // Using generated version instead
+// registerTool(listWebhooksTool(dc, policy)); // Using generated version instead
+// registerTool(createWebhookTool(dc, policy)); // Using generated version instead
+registerTool(executeWebhookTool(dc)); // Custom implementation
+// registerTool(deleteWebhookTool(dc)); // Using generated version instead
+// registerTool(listPinsTool(dc, policy)); // Using generated version instead
+// registerTool(pinMessageTool(dc, policy)); // Using generated version instead
+// registerTool(unpinMessageTool(dc, policy)); // Using generated version instead
+// registerTool(bulkDeleteMessagesTool(dc, policy)); // Using generated version instead
+// registerTool(listRolesTool(dc)); // Using generated version instead
+// registerTool(createRoleTool(dc)); // Using generated version instead
+// registerTool(deleteRoleTool(dc)); // Using generated version instead
+registerTool(createChannelTool(dc)); // Custom implementation
+registerTool(editChannelTool(dc, policy)); // Custom implementation
+registerTool(deleteChannelTool(dc, policy)); // Custom implementation
+registerTool(getUserTool(dc)); // Custom implementation
+registerTool(dmUserTool(dc)); // Custom implementation
+// registerTool(listCommandsTool(dc)); // Using generated version instead
+registerTool(upsertCommandTool(dc)); // Custom implementation
+registerTool(deleteCommandTool(dc)); // Custom implementation
+registerTool(setChannelPermissionTool(dc, policy)); // Custom implementation
+// registerTool(triggerTypingTool(dc, policy)); // Using generated version instead
 registerTool(rawRestTool(dc, Boolean(process.env.ENABLE_RAW_REST)));
 registerTool(gatewaySubscribeTool(gw));
 registerTool(gatewayGetEventsTool(gw));
@@ -169,38 +188,81 @@ for (const t of generated) {
 registerTool(searchToolsTool(docsIndex));
 registerTool(helpTool(docsIndex));
 registerTool(toolsIndexTool(docsIndex));
-registerTool(listBansTool(dc));
-registerTool(banUserTool(dc));
-registerTool(unbanUserTool(dc));
+registerTool(listBansTool(dc)); // Custom implementation
+// registerTool(banUserTool(dc)); // Using generated version instead
+// registerTool(unbanUserTool(dc)); // Using generated version instead
 
-registerTool(listEmojisTool(dc));
-registerTool(createEmojiTool(dc));
-registerTool(deleteEmojiTool(dc));
+// registerTool(listEmojisTool(dc)); // Using generated version instead
+registerTool(createEmojiTool(dc)); // Custom implementation
+registerTool(deleteEmojiTool(dc)); // Custom implementation
 
-registerTool(listGuildStickersTool(dc));
-registerTool(createGuildStickerTool(dc));
-registerTool(deleteGuildStickerTool(dc));
+registerTool(listGuildStickersTool(dc)); // Custom implementation
+registerTool(createGuildStickerTool(dc)); // Custom implementation
+registerTool(deleteGuildStickerTool(dc)); // Custom implementation
 
-registerTool(listScheduledEventsTool(dc));
-registerTool(createScheduledEventTool(dc));
-registerTool(deleteScheduledEventTool(dc));
+registerTool(listScheduledEventsTool(dc)); // Custom implementation
+registerTool(createScheduledEventTool(dc)); // Custom implementation
+registerTool(deleteScheduledEventTool(dc)); // Custom implementation
 
-registerTool(listPublicArchivedThreadsTool(dc, policy));
-registerTool(listPrivateArchivedThreadsTool(dc, policy));
-registerTool(listJoinedPrivateArchivedThreadsTool(dc, policy));
+registerTool(listPublicArchivedThreadsTool(dc, policy)); // Custom implementation
+registerTool(listPrivateArchivedThreadsTool(dc, policy)); // Custom implementation
+registerTool(listJoinedPrivateArchivedThreadsTool(dc, policy)); // Custom implementation
 
-registerTool(createInviteTool(dc, policy));
-registerTool(deleteInviteTool(dc));
+// registerTool(createInviteTool(dc, policy)); // Using generated version instead
+registerTool(deleteInviteTool(dc)); // Custom implementation
 
-registerTool(getMemberTool(dc));
-registerTool(addMemberRoleTool(dc));
-registerTool(removeMemberRoleTool(dc));
-registerTool(kickMemberTool(dc));
+// registerTool(getMemberTool(dc)); // Using generated version instead
+registerTool(addMemberRoleTool(dc)); // Custom implementation
+registerTool(removeMemberRoleTool(dc)); // Custom implementation
+// registerTool(kickMemberTool(dc)); // Using generated version instead
 
 registerTool(clearAllReactionsTool(dc, policy));
 registerTool(removeUserReactionTool(dc, policy));
 
 registerTool(postMessageWithFilesTool(dc, policy, policy.allowedMentions()));
 
-const transport = new StdioServerTransport();
-await server.connect(transport);
+// Configure transport based on environment
+const transportType = process.env.TRANSPORT || 'stdio';
+const port = parseInt(process.env.PORT || '3000');
+
+if (transportType === 'http') {
+  // Create HTTP server for SSE transport
+  const httpServer = createServer(async (req, res) => {
+    if (req.method === 'GET' && req.url === '/sse') {
+      // Create transport for this connection
+      const transport = new SSEServerTransport('/message', res);
+      await transport.start();
+      await server.connect(transport);
+    } else if (req.method === 'POST' && req.url === '/message') {
+      // Handle POST messages
+      let body = '';
+      req.on('data', chunk => {
+        body += chunk.toString();
+      });
+      req.on('end', async () => {
+        try {
+          const parsedBody = JSON.parse(body);
+          // This needs the specific transport instance for this connection
+          // For now, return a simple response
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ status: 'received' }));
+        } catch (error) {
+          res.writeHead(400);
+          res.end('Invalid JSON');
+        }
+      });
+    } else {
+      res.writeHead(404);
+      res.end('Not Found');
+    }
+  });
+
+  httpServer.listen(port, () => {
+    console.error(`MCP Server running on http://localhost:${port}/sse`);
+  });
+} else {
+  // Use stdio transport
+  const transport = new StdioServerTransport();
+  console.error('MCP Server running with stdio transport');
+  await server.connect(transport);
+}

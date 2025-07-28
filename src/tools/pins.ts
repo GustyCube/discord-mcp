@@ -8,7 +8,7 @@ import { REST } from '@discordjs/rest';
 export function listPinsTool(dc: DiscordClient, policy: Policy): ToolHandler {
   const input = z.object({ channel_id: z.string() });
   return {
-    name: 'discord.list_pins',
+    name: 'discord_list_pins',
     description: 'List pinned messages in a channel.',
     inputSchema: input,
     async *handler({ input }: { input: any }){
@@ -16,7 +16,7 @@ export function listPinsTool(dc: DiscordClient, policy: Policy): ToolHandler {
       if (!policy.allowChannel(channel_id)) throw new Error('Channel not allowed by policy');
       const rest = (dc as any)['rest'] as REST;
       const pins = await rest.get(Routes.channelPins(channel_id)) as APIMessage[];
-      yield { content: [{ type: 'json', text: JSON.stringify(pins) }] };
+      yield { content: [{ type: 'text', text: JSON.stringify(pins) }] };
     }
   };
 }
@@ -24,7 +24,7 @@ export function listPinsTool(dc: DiscordClient, policy: Policy): ToolHandler {
 export function pinMessageTool(dc: DiscordClient, policy: Policy): ToolHandler {
   const input = z.object({ channel_id: z.string(), message_id: z.string() });
   return {
-    name: 'discord.pin_message',
+    name: 'discord_pin_message',
     description: 'Pin a message in a channel.',
     inputSchema: input,
     async *handler({ input }: { input: any }){
@@ -40,7 +40,7 @@ export function pinMessageTool(dc: DiscordClient, policy: Policy): ToolHandler {
 export function unpinMessageTool(dc: DiscordClient, policy: Policy): ToolHandler {
   const input = z.object({ channel_id: z.string(), message_id: z.string() });
   return {
-    name: 'discord.unpin_message',
+    name: 'discord_unpin_message',
     description: 'Unpin a message in a channel.',
     inputSchema: input,
     async *handler({ input }: { input: any }){

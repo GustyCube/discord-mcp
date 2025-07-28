@@ -11,6 +11,13 @@ export class DiscordClient {
   }
 
   /**
+   * Get the REST client for direct API calls
+   */
+  getRest(): REST {
+    return this.rest;
+  }
+
+  /**
    * Wrapper for REST requests with enhanced error handling
    */
   private async request<T>(
@@ -95,7 +102,16 @@ export class DiscordClient {
     const res = await request(url, { method: 'POST', body: JSON.stringify(body), headers: { 'content-type': 'application/json' } });
     if (res.statusCode >= 200 && res.statusCode < 300) {
       const txt = await res.body.text();
-      try { return JSON.parse(txt) as APIMessage; } catch { return null; }
+      if (!txt || txt.trim() === '') {
+        // Discord webhook executed successfully but returned no content
+        return { success: true, message: 'Webhook executed successfully' } as any;
+      }
+      try { 
+        return JSON.parse(txt) as APIMessage; 
+      } catch (e) { 
+        // If we can't parse the response but the webhook succeeded, return success info
+        return { success: true, message: 'Webhook executed successfully', response: txt } as any;
+      }
     } else {
       const text = await res.body.text();
       throw new Error(`Webhook execute failed: ${res.statusCode} ${text}`);

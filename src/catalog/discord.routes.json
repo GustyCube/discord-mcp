@@ -1,6 +1,6 @@
 [
   {
-    "name": "discord.post_message",
+    "name": "discord_post_message",
     "aliases": [
       "send message",
       "message channel",
@@ -10,7 +10,7 @@
     "path": "/channels/:channel_id/messages",
     "description": "Post a message to a channel.",
     "pack": "CORE",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -37,7 +37,7 @@
     }
   },
   {
-    "name": "discord.edit_message",
+    "name": "discord_edit_message",
     "aliases": [
       "edit msg"
     ],
@@ -45,7 +45,7 @@
     "path": "/channels/:channel_id/messages/:message_id",
     "description": "Edit a message by ID.",
     "pack": "CORE",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -67,7 +67,7 @@
     }
   },
   {
-    "name": "discord.get_message",
+    "name": "discord_get_message",
     "aliases": [
       "fetch message"
     ],
@@ -93,7 +93,7 @@
     }
   },
   {
-    "name": "discord.fetch_messages",
+    "name": "discord_fetch_messages",
     "aliases": [
       "list messages",
       "history"
@@ -127,7 +127,7 @@
     }
   },
   {
-    "name": "discord.add_reaction",
+    "name": "discord_add_reaction",
     "aliases": [
       "react"
     ],
@@ -157,7 +157,7 @@
     }
   },
   {
-    "name": "discord.remove_my_reaction",
+    "name": "discord_remove_my_reaction",
     "aliases": [
       "unreact"
     ],
@@ -187,7 +187,7 @@
     }
   },
   {
-    "name": "discord.pin_message",
+    "name": "discord_pin_message",
     "aliases": [
       "pin"
     ],
@@ -195,7 +195,7 @@
     "path": "/channels/:channel_id/pins/:message_id",
     "description": "Pin a message.",
     "pack": "CORE",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -213,7 +213,7 @@
     }
   },
   {
-    "name": "discord.unpin_message",
+    "name": "discord_unpin_message",
     "aliases": [
       "unpin"
     ],
@@ -221,7 +221,7 @@
     "path": "/channels/:channel_id/pins/:message_id",
     "description": "Unpin a message.",
     "pack": "CORE",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -239,7 +239,7 @@
     }
   },
   {
-    "name": "discord.create_thread",
+    "name": "discord_create_thread",
     "aliases": [
       "new thread"
     ],
@@ -247,7 +247,7 @@
     "path": "/channels/:channel_id/threads",
     "description": "Create a thread in a channel; optionally from a message.",
     "pack": "COMMUNITY",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -268,7 +268,7 @@
     }
   },
   {
-    "name": "discord.webhook_create",
+    "name": "discord_webhook_create",
     "aliases": [
       "create webhook"
     ],
@@ -276,7 +276,7 @@
     "path": "/channels/:channel_id/webhooks",
     "description": "Create a webhook in a channel.",
     "pack": "DEVTOOLS",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -294,7 +294,7 @@
     }
   },
   {
-    "name": "discord.webhook_list",
+    "name": "discord_webhook_list",
     "aliases": [
       "list webhooks"
     ],
@@ -316,7 +316,7 @@
     }
   },
   {
-    "name": "discord.webhook_delete",
+    "name": "discord_webhook_delete",
     "aliases": [
       "delete webhook"
     ],
@@ -324,7 +324,7 @@
     "path": "/webhooks/:webhook_id",
     "description": "Delete a webhook by ID.",
     "pack": "DEVTOOLS",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -338,7 +338,7 @@
     }
   },
   {
-    "name": "discord.list_roles",
+    "name": "discord_list_roles",
     "aliases": [
       "roles"
     ],
@@ -360,7 +360,7 @@
     }
   },
   {
-    "name": "discord.create_role",
+    "name": "discord_create_role",
     "aliases": [
       "new role"
     ],
@@ -368,7 +368,7 @@
     "path": "/guilds/:guild_id/roles",
     "description": "Create a role in a guild.",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -386,7 +386,7 @@
     }
   },
   {
-    "name": "discord.delete_role",
+    "name": "discord_delete_role",
     "aliases": [
       "remove role"
     ],
@@ -394,7 +394,7 @@
     "path": "/guilds/:guild_id/roles/:role_id",
     "description": "Delete a role in a guild.",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -412,7 +412,7 @@
     }
   },
   {
-    "name": "discord.get_member",
+    "name": "discord_get_member",
     "aliases": [
       "member info"
     ],
@@ -438,7 +438,7 @@
     }
   },
   {
-    "name": "discord.kick_member",
+    "name": "discord_kick_member",
     "aliases": [
       "kick"
     ],
@@ -446,7 +446,7 @@
     "path": "/guilds/:guild_id/members/:user_id",
     "description": "Kick (remove) a member.",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -464,7 +464,7 @@
     }
   },
   {
-    "name": "discord.ban_user",
+    "name": "discord_ban_user",
     "aliases": [
       "ban member"
     ],
@@ -472,7 +472,7 @@
     "path": "/guilds/:guild_id/bans/:user_id",
     "description": "Ban a user from a guild.",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -495,7 +495,7 @@
     }
   },
   {
-    "name": "discord.unban_user",
+    "name": "discord_unban_user",
     "aliases": [
       "pardon"
     ],
@@ -503,7 +503,7 @@
     "path": "/guilds/:guild_id/bans/:user_id",
     "description": "Remove a ban.",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -521,7 +521,7 @@
     }
   },
   {
-    "name": "discord.create_invite",
+    "name": "discord_create_invite",
     "aliases": [
       "invite link"
     ],
@@ -529,7 +529,7 @@
     "path": "/channels/:channel_id/invites",
     "description": "Create an invite to a channel.",
     "pack": "COMMUNITY",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -552,7 +552,7 @@
     }
   },
   {
-    "name": "discord.list_emojis",
+    "name": "discord_list_emojis",
     "aliases": [
       "emojis"
     ],
@@ -574,7 +574,7 @@
     }
   },
   {
-    "name": "discord.list_commands",
+    "name": "discord_list_commands",
     "aliases": [
       "slash commands"
     ],
@@ -596,7 +596,7 @@
     }
   },
   {
-    "name": "discord.trigger_typing",
+    "name": "discord_trigger_typing",
     "aliases": [
       "typing"
     ],
@@ -618,7 +618,7 @@
     }
   },
   {
-    "name": "discord.get_audit_log",
+    "name": "discord_get_audit_log",
     "aliases": [
       "audit log",
       "guild audit log"
@@ -655,7 +655,7 @@
     }
   },
   {
-    "name": "discord.list_auto_moderation_rules",
+    "name": "discord_list_auto_moderation_rules",
     "aliases": [
       "automod rules"
     ],
@@ -677,7 +677,7 @@
     }
   },
   {
-    "name": "discord.get_auto_moderation_rule",
+    "name": "discord_get_auto_moderation_rule",
     "aliases": [
       "automod rule"
     ],
@@ -703,7 +703,7 @@
     }
   },
   {
-    "name": "discord.create_auto_moderation_rule",
+    "name": "discord_create_auto_moderation_rule",
     "aliases": [
       "create automod rule"
     ],
@@ -711,7 +711,7 @@
     "path": "/guilds/:guild_id/auto-moderation/rules",
     "description": "Create an AutoMod rule (see docs for structure).",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -753,7 +753,7 @@
     }
   },
   {
-    "name": "discord.modify_auto_moderation_rule",
+    "name": "discord_modify_auto_moderation_rule",
     "aliases": [
       "edit automod rule"
     ],
@@ -761,7 +761,7 @@
     "path": "/guilds/:guild_id/auto-moderation/rules/:rule_id",
     "description": "Modify an AutoMod rule.",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -800,7 +800,7 @@
     }
   },
   {
-    "name": "discord.delete_auto_moderation_rule",
+    "name": "discord_delete_auto_moderation_rule",
     "aliases": [
       "remove automod rule"
     ],
@@ -808,7 +808,7 @@
     "path": "/guilds/:guild_id/auto-moderation/rules/:rule_id",
     "description": "Delete an AutoMod rule.",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -826,7 +826,7 @@
     }
   },
   {
-    "name": "discord.get_stage_instance",
+    "name": "discord_get_stage_instance",
     "aliases": [
       "stage info"
     ],
@@ -848,7 +848,7 @@
     }
   },
   {
-    "name": "discord.create_stage_instance",
+    "name": "discord_create_stage_instance",
     "aliases": [
       "start stage"
     ],
@@ -856,7 +856,7 @@
     "path": "/stage-instances",
     "description": "Create/start a stage instance.",
     "pack": "COMMUNITY",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -877,7 +877,7 @@
     }
   },
   {
-    "name": "discord.delete_stage_instance",
+    "name": "discord_delete_stage_instance",
     "aliases": [
       "end stage"
     ],
@@ -885,7 +885,7 @@
     "path": "/stage-instances/:channel_id",
     "description": "Delete/end a stage instance.",
     "pack": "COMMUNITY",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -899,7 +899,7 @@
     }
   },
   {
-    "name": "discord.list_scheduled_event_users",
+    "name": "discord_list_scheduled_event_users",
     "aliases": [
       "event subscribers"
     ],
@@ -939,7 +939,7 @@
     }
   },
   {
-    "name": "discord.list_thread_members",
+    "name": "discord_list_thread_members",
     "aliases": [
       "thread members"
     ],
@@ -961,7 +961,7 @@
     }
   },
   {
-    "name": "discord.join_thread",
+    "name": "discord_join_thread",
     "aliases": [
       "join thread"
     ],
@@ -969,7 +969,7 @@
     "path": "/channels/:thread_id/thread-members/@me",
     "description": "Join a thread as the bot.",
     "pack": "COMMUNITY",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -983,7 +983,7 @@
     }
   },
   {
-    "name": "discord.leave_thread",
+    "name": "discord_leave_thread",
     "aliases": [
       "leave thread"
     ],
@@ -991,7 +991,7 @@
     "path": "/channels/:thread_id/thread-members/@me",
     "description": "Leave a thread as the bot.",
     "pack": "COMMUNITY",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -1005,7 +1005,7 @@
     }
   },
   {
-    "name": "discord.get_guild",
+    "name": "discord_get_guild",
     "aliases": [
       "guild info"
     ],
@@ -1027,7 +1027,7 @@
     }
   },
   {
-    "name": "discord.modify_guild",
+    "name": "discord_modify_guild",
     "aliases": [
       "edit guild"
     ],
@@ -1035,7 +1035,7 @@
     "path": "/guilds/:guild_id",
     "description": "Modify guild settings (limited fields).",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -1055,7 +1055,7 @@
     }
   },
   {
-    "name": "discord.get_welcome_screen",
+    "name": "discord_get_welcome_screen",
     "aliases": [
       "welcome screen"
     ],
@@ -1077,7 +1077,7 @@
     }
   },
   {
-    "name": "discord.get_guild_templates",
+    "name": "discord_get_guild_templates",
     "aliases": [
       "list templates"
     ],
@@ -1099,7 +1099,7 @@
     }
   },
   {
-    "name": "discord.sync_guild_template",
+    "name": "discord_sync_guild_template",
     "aliases": [
       "sync template"
     ],
@@ -1107,7 +1107,7 @@
     "path": "/guilds/:guild_id/templates/:code",
     "description": "Sync a template to the guild's current state.",
     "pack": "DEVTOOLS",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -1125,7 +1125,7 @@
     }
   },
   {
-    "name": "discord.delete_message",
+    "name": "discord_delete_message",
     "aliases": [
       "remove message"
     ],
@@ -1133,7 +1133,7 @@
     "path": "/channels/:channel_id/messages/:message_id",
     "description": "Delete a message by ID.",
     "pack": "CORE",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -1151,7 +1151,7 @@
     }
   },
   {
-    "name": "discord.list_pins",
+    "name": "discord_list_pins",
     "aliases": [
       "get pins"
     ],
@@ -1173,7 +1173,7 @@
     }
   },
   {
-    "name": "discord.crosspost_message",
+    "name": "discord_crosspost_message",
     "aliases": [
       "publish message"
     ],
@@ -1181,7 +1181,7 @@
     "path": "/channels/:channel_id/messages/:message_id/crosspost",
     "description": "Crosspost a news channel message.",
     "pack": "COMMUNITY",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -1199,7 +1199,7 @@
     }
   },
   {
-    "name": "discord.get_reactors",
+    "name": "discord_get_reactors",
     "aliases": [
       "list reactors"
     ],
@@ -1237,7 +1237,7 @@
     }
   },
   {
-    "name": "discord.create_thread_from_message",
+    "name": "discord_create_thread_from_message",
     "aliases": [
       "start thread from message"
     ],
@@ -1245,7 +1245,7 @@
     "path": "/channels/:channel_id/messages/:message_id/threads",
     "description": "Create a thread from an existing message.",
     "pack": "COMMUNITY",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -1267,7 +1267,7 @@
     }
   },
   {
-    "name": "discord.list_channel_invites",
+    "name": "discord_list_channel_invites",
     "aliases": [
       "get invites"
     ],
@@ -1289,7 +1289,7 @@
     }
   },
   {
-    "name": "discord.list_members",
+    "name": "discord_list_members",
     "aliases": [
       "members"
     ],
@@ -1319,7 +1319,7 @@
     }
   },
   {
-    "name": "discord.search_members",
+    "name": "discord_search_members",
     "aliases": [
       "find members"
     ],
@@ -1350,7 +1350,7 @@
     }
   },
   {
-    "name": "discord.modify_member",
+    "name": "discord_modify_member",
     "aliases": [
       "edit member"
     ],
@@ -1358,7 +1358,7 @@
     "path": "/guilds/:guild_id/members/:user_id",
     "description": "Modify a member (nick, roles, mute/deaf, channel).",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -1391,7 +1391,7 @@
     }
   },
   {
-    "name": "discord.prune_count",
+    "name": "discord_prune_count",
     "aliases": [
       "get prune count"
     ],
@@ -1418,7 +1418,7 @@
     }
   },
   {
-    "name": "discord.begin_prune",
+    "name": "discord_begin_prune",
     "aliases": [
       "prune"
     ],
@@ -1426,7 +1426,7 @@
     "path": "/guilds/:guild_id/prune",
     "description": "Begin a member prune.",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -1452,7 +1452,7 @@
     }
   },
   {
-    "name": "discord.modify_role",
+    "name": "discord_modify_role",
     "aliases": [
       "edit role"
     ],
@@ -1460,7 +1460,7 @@
     "path": "/guilds/:guild_id/roles/:role_id",
     "description": "Modify a role (name, color, hoist, permissions).",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -1493,7 +1493,7 @@
     }
   },
   {
-    "name": "discord.modify_role_positions",
+    "name": "discord_modify_role_positions",
     "aliases": [
       "reorder roles"
     ],
@@ -1501,7 +1501,7 @@
     "path": "/guilds/:guild_id/roles",
     "description": "Modify the positions of roles.",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -1519,7 +1519,7 @@
     }
   },
   {
-    "name": "discord.get_emoji",
+    "name": "discord_get_emoji",
     "aliases": [
       "emoji info"
     ],
@@ -1545,7 +1545,7 @@
     }
   },
   {
-    "name": "discord.modify_emoji",
+    "name": "discord_modify_emoji",
     "aliases": [
       "edit emoji"
     ],
@@ -1553,7 +1553,7 @@
     "path": "/guilds/:guild_id/emojis/:emoji_id",
     "description": "Modify a custom emoji (name/roles).",
     "pack": "MEDIA",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -1577,7 +1577,7 @@
     }
   },
   {
-    "name": "discord.modify_scheduled_event",
+    "name": "discord_modify_scheduled_event",
     "aliases": [
       "edit event"
     ],
@@ -1585,7 +1585,7 @@
     "path": "/guilds/:guild_id/scheduled-events/:event_id",
     "description": "Modify a scheduled event.",
     "pack": "COMMUNITY",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -1624,7 +1624,7 @@
     }
   },
   {
-    "name": "discord.follow_news_channel",
+    "name": "discord_follow_news_channel",
     "aliases": [
       "follow announcements"
     ],
@@ -1632,7 +1632,7 @@
     "path": "/channels/:channel_id/followers",
     "description": "Follow a News channel to another channel.",
     "pack": "COMMUNITY",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -1650,7 +1650,7 @@
     }
   },
   {
-    "name": "discord.get_current_user",
+    "name": "discord_get_current_user",
     "aliases": [
       "whoami"
     ],
@@ -1666,7 +1666,7 @@
     }
   },
   {
-    "name": "discord.get_current_application",
+    "name": "discord_get_current_application",
     "aliases": [
       "app info"
     ],
@@ -1682,7 +1682,7 @@
     }
   },
   {
-    "name": "discord.webhook_followup_create",
+    "name": "discord_webhook_followup_create",
     "aliases": [
       "create followup"
     ],
@@ -1690,7 +1690,7 @@
     "path": "/webhooks/:application_id/:interaction_token",
     "description": "Create a follow-up message for an interaction (token-based).",
     "pack": "DEVTOOLS",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -1715,7 +1715,7 @@
     }
   },
   {
-    "name": "discord.webhook_followup_edit",
+    "name": "discord_webhook_followup_edit",
     "aliases": [
       "edit followup"
     ],
@@ -1723,7 +1723,7 @@
     "path": "/webhooks/:application_id/:interaction_token/messages/:message_id",
     "description": "Edit a follow-up message by ID (use @original for the original response).",
     "pack": "DEVTOOLS",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -1749,7 +1749,7 @@
     }
   },
   {
-    "name": "discord.webhook_followup_delete",
+    "name": "discord_webhook_followup_delete",
     "aliases": [
       "delete followup"
     ],
@@ -1757,7 +1757,7 @@
     "path": "/webhooks/:application_id/:interaction_token/messages/:message_id",
     "description": "Delete a follow-up message by ID.",
     "pack": "DEVTOOLS",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -1779,7 +1779,7 @@
     }
   },
   {
-    "name": "discord.get_webhook",
+    "name": "discord_get_webhook",
     "aliases": [
       "webhook info"
     ],
@@ -1801,7 +1801,7 @@
     }
   },
   {
-    "name": "discord.modify_webhook",
+    "name": "discord_modify_webhook",
     "aliases": [
       "edit webhook"
     ],
@@ -1809,7 +1809,7 @@
     "path": "/webhooks/:webhook_id",
     "description": "Modify a webhook (name/channel).",
     "pack": "DEVTOOLS",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -1829,7 +1829,7 @@
     }
   },
   {
-    "name": "discord.get_webhook_with_token",
+    "name": "discord_get_webhook_with_token",
     "aliases": [
       "webhook info token"
     ],
@@ -1855,7 +1855,7 @@
     }
   },
   {
-    "name": "discord.modify_webhook_with_token",
+    "name": "discord_modify_webhook_with_token",
     "aliases": [
       "edit webhook token"
     ],
@@ -1863,7 +1863,7 @@
     "path": "/webhooks/:webhook_id/:token",
     "description": "Modify a webhook using token (name/avatar/channel).",
     "pack": "DEVTOOLS",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -1890,7 +1890,7 @@
     }
   },
   {
-    "name": "discord.execute_webhook_advanced",
+    "name": "discord_execute_webhook_advanced",
     "aliases": [
       "execute webhook advanced"
     ],
@@ -1898,7 +1898,7 @@
     "path": "/webhooks/:webhook_id/:token",
     "description": "Execute a webhook (content/embeds/components/attachments).",
     "pack": "DEVTOOLS",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -1920,7 +1920,7 @@
     }
   },
   {
-    "name": "discord.edit_webhook_message",
+    "name": "discord_edit_webhook_message",
     "aliases": [
       "edit webhook message"
     ],
@@ -1928,7 +1928,7 @@
     "path": "/webhooks/:webhook_id/:token/messages/:message_id",
     "description": "Edit a message sent by a webhook.",
     "pack": "DEVTOOLS",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -1954,7 +1954,7 @@
     }
   },
   {
-    "name": "discord.delete_webhook_message",
+    "name": "discord_delete_webhook_message",
     "aliases": [
       "delete webhook message"
     ],
@@ -1962,7 +1962,7 @@
     "path": "/webhooks/:webhook_id/:token/messages/:message_id",
     "description": "Delete a message sent by a webhook.",
     "pack": "DEVTOOLS",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -1984,7 +1984,7 @@
     }
   },
   {
-    "name": "discord.list_voice_regions",
+    "name": "discord_list_voice_regions",
     "aliases": [
       "voice regions"
     ],
@@ -2000,7 +2000,7 @@
     }
   },
   {
-    "name": "discord.list_guild_voice_regions",
+    "name": "discord_list_guild_voice_regions",
     "aliases": [
       "guild voice regions"
     ],
@@ -2022,7 +2022,7 @@
     }
   },
   {
-    "name": "discord.list_guild_invites",
+    "name": "discord_list_guild_invites",
     "aliases": [
       "guild invites"
     ],
@@ -2044,7 +2044,7 @@
     }
   },
   {
-    "name": "discord.get_thread_member",
+    "name": "discord_get_thread_member",
     "aliases": [
       "thread member info"
     ],
@@ -2070,7 +2070,7 @@
     }
   },
   {
-    "name": "discord.add_thread_member",
+    "name": "discord_add_thread_member",
     "aliases": [
       "add to thread"
     ],
@@ -2078,7 +2078,7 @@
     "path": "/channels/:thread_id/thread-members/:user_id",
     "description": "Add a user to a private thread.",
     "pack": "COMMUNITY",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -2096,7 +2096,7 @@
     }
   },
   {
-    "name": "discord.remove_thread_member",
+    "name": "discord_remove_thread_member",
     "aliases": [
       "remove from thread"
     ],
@@ -2104,7 +2104,7 @@
     "path": "/channels/:thread_id/thread-members/:user_id",
     "description": "Remove a user from a thread.",
     "pack": "COMMUNITY",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -2122,7 +2122,7 @@
     }
   },
   {
-    "name": "discord.create_forum_post",
+    "name": "discord_create_forum_post",
     "aliases": [
       "create forum thread"
     ],
@@ -2130,7 +2130,7 @@
     "path": "/channels/:channel_id/threads",
     "description": "Create a forum post (thread) with optional applied tags.",
     "pack": "COMMUNITY",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -2154,7 +2154,7 @@
     }
   },
   {
-    "name": "discord.get_guild_widget",
+    "name": "discord_get_guild_widget",
     "aliases": [
       "guild widget"
     ],
@@ -2176,7 +2176,7 @@
     }
   },
   {
-    "name": "discord.modify_guild_widget",
+    "name": "discord_modify_guild_widget",
     "aliases": [
       "edit guild widget"
     ],
@@ -2184,7 +2184,7 @@
     "path": "/guilds/:guild_id/widget",
     "description": "Modify the guild widget (enabled, channel).",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -2204,7 +2204,7 @@
     }
   },
   {
-    "name": "discord.get_vanity_url",
+    "name": "discord_get_vanity_url",
     "aliases": [
       "vanity url"
     ],
@@ -2226,7 +2226,7 @@
     }
   },
   {
-    "name": "discord.modify_vanity_url",
+    "name": "discord_modify_vanity_url",
     "aliases": [
       "set vanity url"
     ],
@@ -2234,7 +2234,7 @@
     "path": "/guilds/:guild_id/vanity-url",
     "description": "Set the guild vanity URL (requires permissions).",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -2252,7 +2252,7 @@
     }
   },
   {
-    "name": "discord.list_guild_integrations",
+    "name": "discord_list_guild_integrations",
     "aliases": [
       "integrations"
     ],
@@ -2274,7 +2274,7 @@
     }
   },
   {
-    "name": "discord.delete_channel_permission",
+    "name": "discord_delete_channel_permission",
     "aliases": [
       "remove channel overwrite"
     ],
@@ -2282,7 +2282,7 @@
     "path": "/channels/:channel_id/permissions/:overwrite_id",
     "description": "Delete a permission overwrite on a channel.",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -2300,7 +2300,7 @@
     }
   },
   {
-    "name": "discord.get_guild_onboarding",
+    "name": "discord_get_guild_onboarding",
     "aliases": [
       "onboarding"
     ],
@@ -2322,7 +2322,7 @@
     }
   },
   {
-    "name": "discord.modify_guild_onboarding",
+    "name": "discord_modify_guild_onboarding",
     "aliases": [
       "edit onboarding"
     ],
@@ -2330,7 +2330,7 @@
     "path": "/guilds/:guild_id/onboarding",
     "description": "Modify guild onboarding configuration.",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -2356,7 +2356,7 @@
     }
   },
   {
-    "name": "discord.set_forum_tags",
+    "name": "discord_set_forum_tags",
     "aliases": [
       "set available tags"
     ],
@@ -2364,7 +2364,7 @@
     "path": "/channels/:channel_id",
     "description": "Set available forum tags on a forum/media channel (available_tags).",
     "pack": "COMMUNITY",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -2382,7 +2382,7 @@
     }
   },
   {
-    "name": "discord.create_guild_template",
+    "name": "discord_create_guild_template",
     "aliases": [
       "create template"
     ],
@@ -2390,7 +2390,7 @@
     "path": "/guilds/:guild_id/templates",
     "description": "Create a new guild template.",
     "pack": "DEVTOOLS",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -2411,7 +2411,7 @@
     }
   },
   {
-    "name": "discord.get_guild_template_by_code",
+    "name": "discord_get_guild_template_by_code",
     "aliases": [
       "get template by code"
     ],
@@ -2433,7 +2433,7 @@
     }
   },
   {
-    "name": "discord.modify_guild_template",
+    "name": "discord_modify_guild_template",
     "aliases": [
       "edit template"
     ],
@@ -2441,7 +2441,7 @@
     "path": "/guilds/:guild_id/templates/:code",
     "description": "Modify a guild template's metadata.",
     "pack": "DEVTOOLS",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -2465,7 +2465,7 @@
     }
   },
   {
-    "name": "discord.delete_guild_template",
+    "name": "discord_delete_guild_template",
     "aliases": [
       "delete template"
     ],
@@ -2473,7 +2473,7 @@
     "path": "/guilds/:guild_id/templates/:code",
     "description": "Delete a guild template.",
     "pack": "DEVTOOLS",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -2491,7 +2491,7 @@
     }
   },
   {
-    "name": "discord.modify_own_voice_state",
+    "name": "discord_modify_own_voice_state",
     "aliases": [
       "set my voice state"
     ],
@@ -2499,7 +2499,7 @@
     "path": "/guilds/:guild_id/voice-states/@me",
     "description": "Modify the bot's voice state in a guild (channel_id, suppress, request_to_speak_timestamp).",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -2522,7 +2522,7 @@
     }
   },
   {
-    "name": "discord.modify_user_voice_state",
+    "name": "discord_modify_user_voice_state",
     "aliases": [
       "set user voice state"
     ],
@@ -2530,7 +2530,7 @@
     "path": "/guilds/:guild_id/voice-states/:user_id",
     "description": "Update another user's voice state (requires elevated permissions; often restricted).",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -2554,7 +2554,7 @@
     }
   },
   {
-    "name": "discord.get_guild_command_permissions",
+    "name": "discord_get_guild_command_permissions",
     "aliases": [
       "command permissions (OAuth)"
     ],
@@ -2584,7 +2584,7 @@
     }
   },
   {
-    "name": "discord.list_soundboard_sounds",
+    "name": "discord_list_soundboard_sounds",
     "aliases": [
       "soundboard list"
     ],
@@ -2606,7 +2606,7 @@
     }
   },
   {
-    "name": "discord.create_soundboard_sound",
+    "name": "discord_create_soundboard_sound",
     "aliases": [
       "soundboard create"
     ],
@@ -2614,7 +2614,7 @@
     "path": "/guilds/:guild_id/soundboard-sounds",
     "description": "[EXPERIMENTAL] Create a soundboard sound (fields may change).",
     "pack": "EXPERIMENTAL",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -2639,7 +2639,7 @@
     }
   },
   {
-    "name": "discord.modify_soundboard_sound",
+    "name": "discord_modify_soundboard_sound",
     "aliases": [
       "soundboard edit"
     ],
@@ -2647,7 +2647,7 @@
     "path": "/guilds/:guild_id/soundboard-sounds/:sound_id",
     "description": "[EXPERIMENTAL] Modify a soundboard sound (fields may change).",
     "pack": "EXPERIMENTAL",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -2671,7 +2671,7 @@
     }
   },
   {
-    "name": "discord.delete_soundboard_sound",
+    "name": "discord_delete_soundboard_sound",
     "aliases": [
       "soundboard delete"
     ],
@@ -2679,7 +2679,7 @@
     "path": "/guilds/:guild_id/soundboard-sounds/:sound_id",
     "description": "[EXPERIMENTAL] Delete a soundboard sound.",
     "pack": "EXPERIMENTAL",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -2697,7 +2697,7 @@
     }
   },
   {
-    "name": "discord.get_invite",
+    "name": "discord_get_invite",
     "aliases": [
       "fetch invite"
     ],
@@ -2725,7 +2725,7 @@
     }
   },
   {
-    "name": "discord.list_active_threads_channel",
+    "name": "discord_list_active_threads_channel",
     "aliases": [
       "active threads (channel)"
     ],
@@ -2747,7 +2747,7 @@
     }
   },
   {
-    "name": "discord.list_active_threads_guild",
+    "name": "discord_list_active_threads_guild",
     "aliases": [
       "active threads (guild)"
     ],
@@ -2769,7 +2769,7 @@
     }
   },
   {
-    "name": "discord.modify_stage_instance",
+    "name": "discord_modify_stage_instance",
     "aliases": [
       "edit stage"
     ],
@@ -2777,7 +2777,7 @@
     "path": "/stage-instances/:channel_id",
     "description": "Modify a stage instance (topic/privacy).",
     "pack": "COMMUNITY",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -2797,7 +2797,7 @@
     }
   },
   {
-    "name": "discord.list_guild_webhooks",
+    "name": "discord_list_guild_webhooks",
     "aliases": [
       "webhooks (guild)"
     ],
@@ -2819,7 +2819,7 @@
     }
   },
   {
-    "name": "discord.get_guild_ban",
+    "name": "discord_get_guild_ban",
     "aliases": [
       "ban info"
     ],
@@ -2845,7 +2845,7 @@
     }
   },
   {
-    "name": "discord.list_sticker_packs",
+    "name": "discord_list_sticker_packs",
     "aliases": [
       "sticker packs"
     ],
@@ -2861,7 +2861,7 @@
     }
   },
   {
-    "name": "discord.get_sticker",
+    "name": "discord_get_sticker",
     "aliases": [
       "sticker info"
     ],
@@ -2883,7 +2883,7 @@
     }
   },
   {
-    "name": "discord.set_role_connections_metadata",
+    "name": "discord_set_role_connections_metadata",
     "aliases": [
       "linked roles metadata"
     ],
@@ -2891,7 +2891,7 @@
     "path": "/applications/:application_id/role-connections/metadata",
     "description": "Set application role connections (linked roles) metadata.",
     "pack": "DEVTOOLS",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -2909,7 +2909,7 @@
     }
   },
   {
-    "name": "discord.get_original_interaction_response",
+    "name": "discord_get_original_interaction_response",
     "aliases": [
       "get original interaction response"
     ],
@@ -2935,7 +2935,7 @@
     }
   },
   {
-    "name": "discord.get_guild_preview",
+    "name": "discord_get_guild_preview",
     "aliases": [
       "guild preview"
     ],
@@ -2957,7 +2957,7 @@
     }
   },
   {
-    "name": "discord.get_scheduled_event",
+    "name": "discord_get_scheduled_event",
     "aliases": [
       "get event"
     ],
@@ -2983,7 +2983,7 @@
     }
   },
   {
-    "name": "discord.bulk_overwrite_commands_global",
+    "name": "discord_bulk_overwrite_commands_global",
     "aliases": [
       "bulk overwrite commands"
     ],
@@ -2991,7 +2991,7 @@
     "path": "/applications/:application_id/commands",
     "description": "Bulk overwrite global application commands (deploy pipeline use).",
     "pack": "DEVTOOLS",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -3009,7 +3009,7 @@
     }
   },
   {
-    "name": "discord.bulk_overwrite_commands_guild",
+    "name": "discord_bulk_overwrite_commands_guild",
     "aliases": [
       "bulk overwrite guild commands"
     ],
@@ -3017,7 +3017,7 @@
     "path": "/applications/:application_id/guilds/:guild_id/commands",
     "description": "Bulk overwrite guild application commands.",
     "pack": "DEVTOOLS",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -3039,7 +3039,7 @@
     }
   },
   {
-    "name": "discord.get_command_global",
+    "name": "discord_get_command_global",
     "aliases": [
       "get command"
     ],
@@ -3065,7 +3065,7 @@
     }
   },
   {
-    "name": "discord.get_command_guild",
+    "name": "discord_get_command_guild",
     "aliases": [
       "get guild command"
     ],
@@ -3095,7 +3095,7 @@
     }
   },
   {
-    "name": "discord.get_role_connections_metadata",
+    "name": "discord_get_role_connections_metadata",
     "aliases": [
       "get linked roles metadata"
     ],
@@ -3117,7 +3117,7 @@
     }
   },
   {
-    "name": "discord.modify_guild_welcome_screen",
+    "name": "discord_modify_guild_welcome_screen",
     "aliases": [
       "edit welcome screen"
     ],
@@ -3125,7 +3125,7 @@
     "path": "/guilds/:guild_id/welcome-screen",
     "description": "Modify the guild's Welcome Screen (Manage Guild required).",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -3148,7 +3148,7 @@
     }
   },
   {
-    "name": "discord.modify_guild_channel_positions",
+    "name": "discord_modify_guild_channel_positions",
     "aliases": [
       "reorder channels"
     ],
@@ -3156,7 +3156,7 @@
     "path": "/guilds/:guild_id/channels",
     "description": "Modify positions/parents of channels in a guild.",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -3174,7 +3174,7 @@
     }
   },
   {
-    "name": "discord.get_guild_widget_json",
+    "name": "discord_get_guild_widget_json",
     "aliases": [
       "guild widget json"
     ],
@@ -3196,7 +3196,7 @@
     }
   },
   {
-    "name": "discord.get_guild_widget_image",
+    "name": "discord_get_guild_widget_image",
     "aliases": [
       "guild widget image"
     ],
@@ -3221,7 +3221,7 @@
     }
   },
   {
-    "name": "discord.modify_guild_mfa_level",
+    "name": "discord_modify_guild_mfa_level",
     "aliases": [
       "set guild mfa"
     ],
@@ -3229,7 +3229,7 @@
     "path": "/guilds/:guild_id/mfa",
     "description": "Modify a guild's MFA level (owner 2FA required).",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -3247,7 +3247,7 @@
     }
   },
   {
-    "name": "discord.modify_guild_sticker",
+    "name": "discord_modify_guild_sticker",
     "aliases": [
       "edit guild sticker"
     ],
@@ -3255,7 +3255,7 @@
     "path": "/guilds/:guild_id/stickers/:sticker_id",
     "description": "Modify a guild sticker (name/description/tags).",
     "pack": "MEDIA",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -3282,7 +3282,7 @@
     }
   },
   {
-    "name": "discord.list_guild_channels",
+    "name": "discord_list_guild_channels",
     "aliases": [
       "channels list"
     ],
@@ -3304,7 +3304,7 @@
     }
   },
   {
-    "name": "discord.bulk_delete_messages",
+    "name": "discord_bulk_delete_messages",
     "aliases": [
       "purge messages"
     ],
@@ -3312,7 +3312,7 @@
     "path": "/channels/:channel_id/messages/bulk-delete",
     "description": "Bulk delete 2\u2013100 messages (cannot delete messages older than 14 days).",
     "pack": "CORE",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -3330,7 +3330,7 @@
     }
   },
   {
-    "name": "discord.get_channel",
+    "name": "discord_get_channel",
     "aliases": [
       "channel info"
     ],
@@ -3352,7 +3352,7 @@
     }
   },
   {
-    "name": "discord.delete_reactions_for_emoji",
+    "name": "discord_delete_reactions_for_emoji",
     "aliases": [
       "clear emoji reactions"
     ],
@@ -3360,7 +3360,7 @@
     "path": "/channels/:channel_id/messages/:message_id/reactions/:emoji",
     "description": "Delete all reactions for a specific emoji on a message.",
     "pack": "CORE",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {
@@ -3382,7 +3382,7 @@
     }
   },
   {
-    "name": "discord.modify_my_nickname",
+    "name": "discord_modify_my_nickname",
     "aliases": [
       "set my nick"
     ],
@@ -3390,7 +3390,7 @@
     "path": "/guilds/:guild_id/members/@me",
     "description": "Modify the bot's nickname in a guild.",
     "pack": "ADMIN",
-    "confirm": true,
+    "confirm": false,
     "schema": {
       "type": "object",
       "properties": {

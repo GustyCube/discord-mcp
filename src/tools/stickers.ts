@@ -8,14 +8,14 @@ import { DiscordClient } from '../discord.js';
 export function listGuildStickersTool(dc: DiscordClient): ToolHandler {
   const input = z.object({ guild_id: z.string() });
   return {
-    name: 'discord.list_guild_stickers',
+    name: 'discord_list_guild_stickers',
     description: 'List stickers in a guild.',
     inputSchema: input,
     async *handler({ input }: { input: any }){
       const { guild_id } = input as any;
       const rest = (dc as any)['rest'] as REST;
       const res = await rest.get(Routes.guildStickers(guild_id));
-      yield { content: [{ type: 'json', text: JSON.stringify(res) }] };
+      yield { content: [{ type: 'text', text: JSON.stringify(res) }] };
     }
   };
 }
@@ -30,7 +30,7 @@ export function createGuildStickerTool(dc: DiscordClient): ToolHandler {
     file_base64: z.string().describe('Base64-encoded PNG/APNG/Lottie file')
   });
   return {
-    name: 'discord.create_guild_sticker',
+    name: 'discord_create_guild_sticker',
     description: 'Create a guild sticker (PNG/APNG/Lottie).',
     inputSchema: input,
     async *handler({ input }: { input: any }){
@@ -38,7 +38,7 @@ export function createGuildStickerTool(dc: DiscordClient): ToolHandler {
       const rest = (dc as any)['rest'] as REST;
       const file = Buffer.from(file_base64, 'base64');
       const res = await rest.post(Routes.guildStickers(guild_id), { body: { name, description, tags }, files: [{ name: filename, data: file }] });
-      yield { content: [{ type: 'json', text: JSON.stringify(res) }] };
+      yield { content: [{ type: 'text', text: JSON.stringify(res) }] };
     }
   };
 }
@@ -46,7 +46,7 @@ export function createGuildStickerTool(dc: DiscordClient): ToolHandler {
 export function deleteGuildStickerTool(dc: DiscordClient): ToolHandler {
   const input = z.object({ guild_id: z.string(), sticker_id: z.string() });
   return {
-    name: 'discord.delete_guild_sticker',
+    name: 'discord_delete_guild_sticker',
     description: 'Delete a guild sticker.',
     inputSchema: input,
     async *handler({ input }: { input: any }){

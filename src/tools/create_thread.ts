@@ -10,7 +10,7 @@ export function createThreadTool(dc: DiscordClient, policy: Policy): ToolHandler
     message_id: z.string().optional()
   });
   return {
-    name: 'discord.create_thread',
+    name: 'discord_create_thread',
     description: 'Create a thread in a channel; optionally from an existing message.',
     inputSchema: input,
     async *handler({ input }: { input: any }){
@@ -19,7 +19,7 @@ export function createThreadTool(dc: DiscordClient, policy: Policy): ToolHandler
       const body: any = { name };
       if (message_id) body.message_id = message_id;
       const thread = await dc.createThread(channel_id, body);
-      yield { content: [{ type: 'json', text: JSON.stringify(thread) }] };
+      yield { content: [{ type: 'text', text: JSON.stringify(thread) }] };
     }
   };
 }

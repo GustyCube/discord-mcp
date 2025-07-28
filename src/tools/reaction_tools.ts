@@ -6,7 +6,7 @@ import { Policy } from '../policy.js';
 export function addReactionTool(dc: DiscordClient, policy: Policy): ToolHandler {
   const input = z.object({ channel_id: z.string(), message_id: z.string(), emoji: z.string() });
   return {
-    name: 'discord.add_reaction',
+    name: 'discord_add_reaction',
     description: 'Add a reaction emoji to a message.',
     inputSchema: input,
     async *handler({ input }: { input: any }){
@@ -21,7 +21,7 @@ export function addReactionTool(dc: DiscordClient, policy: Policy): ToolHandler 
 export function deleteReactionTool(dc: DiscordClient, policy: Policy): ToolHandler {
   const input = z.object({ channel_id: z.string(), message_id: z.string(), emoji: z.string() });
   return {
-    name: 'discord.delete_reaction',
+    name: 'discord_delete_reaction',
     description: 'Remove your bot reaction from a message.',
     inputSchema: input,
     async *handler({ input }: { input: any }){

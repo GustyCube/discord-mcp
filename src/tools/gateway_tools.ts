@@ -9,7 +9,7 @@ export function gatewaySubscribeTool(gw: GatewayManager): ToolHandler {
     channel_ids: z.array(z.string()).optional()
   });
   return {
-    name: 'discord.gateway_subscribe',
+    name: 'discord_gateway_subscribe',
     description: 'Set filters for which Gateway events are queued for retrieval.',
     inputSchema: input,
     async *handler({ input }: { input: any }){
@@ -23,13 +23,13 @@ export function gatewaySubscribeTool(gw: GatewayManager): ToolHandler {
 export function gatewayGetEventsTool(gw: GatewayManager): ToolHandler {
   const input = z.object({ max: z.number().int().min(1).max(200).default(50) });
   return {
-    name: 'discord.gateway_get_events',
+    name: 'discord_gateway_get_events',
     description: 'Retrieve queued Gateway events (after filtering).',
     inputSchema: input,
     async *handler({ input }: { input: any }){
       const { max } = input as any;
       const events = gw.getEvents(max);
-      yield { content: [{ type: 'json', text: JSON.stringify(events) }] };
+      yield { content: [{ type: 'text', text: JSON.stringify(events) }] };
     }
   };
 }
@@ -37,11 +37,11 @@ export function gatewayGetEventsTool(gw: GatewayManager): ToolHandler {
 export function gatewayInfoTool(gw: GatewayManager): ToolHandler {
   const input = z.object({});
   return {
-    name: 'discord.gateway_info',
+    name: 'discord_gateway_info',
     description: 'Get basic Gateway connection status.',
     inputSchema: input,
     async *handler(){
-      yield { content: [{ type: 'json', text: JSON.stringify(gw.info()) }] };
+      yield { content: [{ type: 'text', text: JSON.stringify(gw.info()) }] };
     }
   };
 }

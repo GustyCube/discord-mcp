@@ -8,7 +8,7 @@ import { Policy } from '../policy.js';
 export function listPublicArchivedThreadsTool(dc: DiscordClient, policy: Policy): ToolHandler {
   const input = z.object({ channel_id: z.string(), before: z.string().optional(), limit: z.number().int().min(1).max(100).optional() });
   return {
-    name: 'discord.list_public_archived_threads',
+    name: 'discord_list_public_archived_threads',
     description: 'List public archived threads in a channel.',
     inputSchema: input,
     async *handler({ input }: { input: any }){
@@ -20,7 +20,7 @@ export function listPublicArchivedThreadsTool(dc: DiscordClient, policy: Policy)
       if (limit) queryParams.set('limit', limit.toString());
       const route = `/channels/${channel_id}/threads/archived/public`;
       const res = await rest.get((queryParams.toString() ? `${route}?${queryParams.toString()}` : route) as `/${string}`);
-      yield { content: [{ type: 'json', text: JSON.stringify(res) }] };
+      yield { content: [{ type: 'text', text: JSON.stringify(res) }] };
     }
   };
 }
@@ -28,7 +28,7 @@ export function listPublicArchivedThreadsTool(dc: DiscordClient, policy: Policy)
 export function listPrivateArchivedThreadsTool(dc: DiscordClient, policy: Policy): ToolHandler {
   const input = z.object({ channel_id: z.string(), before: z.string().optional(), limit: z.number().int().min(1).max(100).optional() });
   return {
-    name: 'discord.list_private_archived_threads',
+    name: 'discord_list_private_archived_threads',
     description: 'List private archived threads in a channel.',
     inputSchema: input,
     async *handler({ input }: { input: any }){
@@ -40,7 +40,7 @@ export function listPrivateArchivedThreadsTool(dc: DiscordClient, policy: Policy
       if (limit) queryParams.set('limit', limit.toString());
       const route = `/channels/${channel_id}/threads/archived/private`;
       const res = await rest.get((queryParams.toString() ? `${route}?${queryParams.toString()}` : route) as `/${string}`);
-      yield { content: [{ type: 'json', text: JSON.stringify(res) }] };
+      yield { content: [{ type: 'text', text: JSON.stringify(res) }] };
     }
   };
 }
@@ -48,7 +48,7 @@ export function listPrivateArchivedThreadsTool(dc: DiscordClient, policy: Policy
 export function listJoinedPrivateArchivedThreadsTool(dc: DiscordClient, policy: Policy): ToolHandler {
   const input = z.object({ channel_id: z.string(), before: z.string().optional(), limit: z.number().int().min(1).max(100).optional() });
   return {
-    name: 'discord.list_joined_private_archived_threads',
+    name: 'discord_list_joined_private_archived_threads',
     description: 'List joined private archived threads in a channel.',
     inputSchema: input,
     async *handler({ input }: { input: any }){
@@ -60,7 +60,7 @@ export function listJoinedPrivateArchivedThreadsTool(dc: DiscordClient, policy: 
       if (limit) queryParams.set('limit', limit.toString());
       const route = Routes.channelJoinedArchivedThreads(channel_id);
       const res = await rest.get((queryParams.toString() ? `${route}?${queryParams.toString()}` : route) as `/${string}`);
-      yield { content: [{ type: 'json', text: JSON.stringify(res) }] };
+      yield { content: [{ type: 'text', text: JSON.stringify(res) }] };
     }
   };
 }

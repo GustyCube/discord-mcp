@@ -20,7 +20,7 @@ export function rawRestTool(dc: DiscordClient, enabled: boolean): ToolHandler {
     body: z.any().optional()
   });
   return {
-    name: 'discord.raw_rest',
+    name: 'discord_raw_rest',
     description: enabled ? 'Call a whitelisted Discord REST route directly.' : 'Disabled by server policy.',
     inputSchema: input,
     async *handler({ input }: { input: any }){
@@ -34,7 +34,7 @@ export function rawRestTool(dc: DiscordClient, enabled: boolean): ToolHandler {
       for (const [k,v] of Object.entries(params)) path = path.replace(`:${k}`, String(v));
       const fn = method.toLowerCase() as 'get'|'post'|'put'|'patch'|'delete';
       const res = await (rest as any)[fn](path.startsWith('/v10') ? path : `/v10${path}`, body ? { body } : {});
-      yield { content: [{ type: 'json', text: JSON.stringify(res) }] };
+      yield { content: [{ type: 'text', text: JSON.stringify(res) }] };
     }
   };
 }

@@ -13,7 +13,7 @@ export function postMessageWithFilesTool(dc: DiscordClient, policy: Policy, defa
     confirm: z.boolean().default(true)
   });
   return {
-    name: 'discord.post_message_files',
+    name: 'discord_post_message_files',
     description: 'Post a message with 1-10 file attachments (base64).',
     inputSchema: input,
     async *handler({ input }: { input: any }){
@@ -26,7 +26,7 @@ export function postMessageWithFilesTool(dc: DiscordClient, policy: Policy, defa
       }
       const payloadFiles = files.map((f:any, i:number)=>({ name: f.filename, data: Buffer.from(f.base64, 'base64') }));
       const msg = await (dc as any)['rest'].post(`/v10/channels/${channel_id}/messages`, { body: { content, allowed_mentions: defaultAllowedMentions }, files: payloadFiles });
-      yield { content: [{ type: 'json', text: JSON.stringify(msg) }] };
+      yield { content: [{ type: 'text', text: JSON.stringify(msg) }] };
     }
   };
 }
