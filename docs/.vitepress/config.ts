@@ -3,9 +3,9 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: 'Discord MCP',
   description: 'Discord MCP server: route-generated tools + Gateway events for Model Context Protocol clients',
-  base: '/discord-mcp/',
+  base: '/', // Root path for custom domain
   head: [
-    ['link', { rel: 'icon', href: '/discord-mcp/favicon.ico' }]
+    ['link', { rel: 'icon', href: '/favicon.ico' }]
   ],
   
   themeConfig: {
