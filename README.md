@@ -2,6 +2,10 @@
 
 A **Model Context Protocol** server that provides AI agents with secure access to Discord's REST API and Gateway events.
 
+<a href="https://glama.ai/mcp/servers/@GustyCube/discord-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@GustyCube/discord-mcp/badge" alt="Discord Server MCP server" />
+</a>
+
 ## Features
 
 🔧 **120+ Discord API Tools** - Complete coverage of Discord's REST API  
