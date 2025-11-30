@@ -68,7 +68,9 @@ const policy = new Policy(cfg);
 const dc = new DiscordClient(token);
 
 // Gateway setup
-const intents = Number(process.env.GATEWAY_INTENTS ?? (1 << 0) /*Guilds*/ | (1 << 9) /*GuildMessages*/);
+const rawIntents = process.env.GATEWAY_INTENTS;
+const defaultIntents = (1 << 0) | (1 << 9); // Guilds | GuildMessages
+const intents = rawIntents ? Number(rawIntents) : defaultIntents;
 const gw = new GatewayManager(token, intents);
 gw.start();
 
