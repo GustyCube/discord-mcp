@@ -26,9 +26,27 @@ export class GatewayManager extends EventEmitter {
       shardCount: 1,
       rest
     });
-    this.#wsm.on('event', (data: AnyEvent) => {
+
+    this.#wsm.on('ready', () => {
+      console.error(`Gateway connected (intents: ${intents})`);
+    });
+    this.#wsm.on('error', (error: any) => {
+      console.error(`Gateway error:`, error);
+    });
+
+    // Use 'dispatch' event name (WebSocketShardEvents.Dispatch = "dispatch")
+    // Payload structure: { data: GatewayDispatchPayload; shardId: number; }
+    this.#wsm.on('dispatch', (payload: { data: any; shardId: number }) => {
       try {
-        const ev = data;
+        // The dispatch payload has the actual gateway event in payload.data
+        // payload.data has: t (type), d (data), s (sequence), op (opcode)
+        const ev: AnyEvent = {
+          t: payload.data.t,
+          d: payload.data.d,
+          s: payload.data.s,
+          op: payload.data.op,
+          shard: payload.shardId
+        };
         if (!this.#passes(ev)) return;
         this.#queue.push(ev);
         // Fix memory leak: remove excess events from the beginning of the queue
@@ -38,7 +56,6 @@ export class GatewayManager extends EventEmitter {
         this.emit('event', ev);
       } catch (error) {
         console.error('Gateway event processing error:', error);
-        // Emit error event so consumers can handle it
         this.emit('error', error);
       }
     });
