@@ -16,7 +16,7 @@ export function fetchMessagesTool(dc: DiscordClient, policy: Policy): ToolHandle
     inputSchema: input,
     async *handler({ input }: { input: any }){
       const { channel_id, limit, before, after } = input as any;
-      if (!policy.allowChannel(channel_id)) throw new Error('Channel not allowed by policy');
+      if (!(await policy.allowChannelResolved(dc, channel_id))) throw new Error('Channel not allowed by policy');
       const msgs = await dc.fetchMessages(channel_id, { limit, before, after });
       yield { content: [{ type: 'text', text: JSON.stringify(msgs) }] };
     }
