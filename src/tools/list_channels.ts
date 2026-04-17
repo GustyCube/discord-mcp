@@ -21,9 +21,10 @@ export function listChannelsTool(dc: DiscordClient, policy: Policy): ToolHandler
       try {
         // Use the DiscordClient's private request method
         const channels = await (dc as any).request('get', Routes.guildChannels(guild_id)) as APIChannel[];
+        const allowlisted = channels.filter(c => policy.allowChannel(c.id));
         const filtered = types && types.length > 0
-          ? channels.filter(c => types.includes((c as any).type))
-          : channels;
+          ? allowlisted.filter(c => types.includes((c as any).type))
+          : allowlisted;
         yield { content: [{ type: 'text', text: JSON.stringify(filtered, null, 2) }] };
       } catch (error: any) {
         yield { content: [{ type: 'text', text: `Error listing channels: ${error.message}` }] };
