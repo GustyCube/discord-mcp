@@ -114,8 +114,8 @@ export function generateTools(catalog: CatalogEntry[], dc: DiscordClient, policy
       inputSchema: inputSchema,
       async *handler({ input }) {
         const data = input;
-        // Allow-lists (best-effort): block if channel_id/guild_id present and not allowed
-        if (data.channel_id && !policy.allowChannel(String(data.channel_id))) throw new Error('Channel not allowed by policy');
+        // Allow-lists: channel_id may inherit access from an allowlisted parent thread channel
+        if (data.channel_id && !(await policy.allowChannelResolved(dc, String(data.channel_id)))) throw new Error('Channel not allowed by policy');
         if (data.guild_id && !policy.allowGuild(String(data.guild_id))) throw new Error('Guild not allowed by policy');
 
         // Preview gate

@@ -149,7 +149,7 @@ function registerTool(toolHandler: any) {
 
 // Register all tools (only those NOT in catalog)
 registerTool(listChannelsTool(dc, policy)); // Custom implementation
-// registerTool(fetchMessagesTool(dc, policy)); // Using generated version instead
+registerTool(fetchMessagesTool(dc, policy)); // Custom implementation: generated GET query path drops pagination params for message history
 // registerTool(postMessageTool(dc, policy, policy.allowedMentions())); // Using generated version instead
 registerTool(replyMessageTool(dc, policy, policy.allowedMentions())); // Custom implementation
 // registerTool(addReactionTool(dc, policy)); // Using generated version instead
@@ -183,6 +183,7 @@ registerTool(gatewayInfoTool(gw));
 
 // Register generated tools
 for (const t of generated) {
+  if (t.entry.name === 'discord_fetch_messages') continue; // use the custom implementation above so limit/before/after pagination works
   registerTool(t.handler);
 }
 
