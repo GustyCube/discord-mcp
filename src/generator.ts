@@ -73,9 +73,19 @@ export function generateTools(catalog: CatalogEntry[], dc: DiscordClient, policy
 }): GeneratedTool[] {
   const rest = dc.getRest();
   const tools: GeneratedTool[] = [];
+  // Blocklist: dangerous tools that should never be exposed, regardless of pack
+  const BLOCKED_TOOLS = new Set([
+    'discord_delete_message',
+    'discord_bulk_delete_messages',
+    'discord_delete_channel',
+    'discord_delete_reactions_for_emoji',
+    'discord_clear_all_reactions',
+  ]);
+
   for (const entry of catalog) {
     const pack = entry.pack ?? 'CORE';
     if (!options.packsEnabled.has(pack)) continue;
+    if (BLOCKED_TOOLS.has(entry.name)) continue;
 
     // Build schema: path params + the schema's properties
     const pathParams = pickParamsForPath(entry.path);
